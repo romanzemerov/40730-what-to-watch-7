@@ -1,7 +1,10 @@
 import React from 'react';
+import { Main } from '../main/main';
 
-function App() {
-  return <p>Hello, world!</p>;
+function App({ movies }) {
+  return <Main movies={movies} />;
 }
 
-export default App;
+App.propTypes = Main.propTypes;
+
+export { App };
