@@ -1,5 +1,5 @@
 import React from 'react';
-import { Main } from '../main/main';
+import { Main } from '../pages/Main/Main';
 import PropTypes from 'prop-types';
 import * as types from '../../types';
 

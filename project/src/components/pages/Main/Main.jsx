@@ -1,7 +1,7 @@
 import React from 'react';
-import { MovieCard } from '../movie-card/movie-card';
+import { MovieCard } from '../../MovieCard/MovieCard';
 import PropTypes from 'prop-types';
-import * as types from '../../types';
+import * as types from '../../../types';
 
 function Main({ movies }) {
   return (
