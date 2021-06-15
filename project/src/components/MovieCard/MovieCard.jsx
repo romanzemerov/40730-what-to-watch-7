@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import * as types from '../../types';
 
 function MovieCard({ name, posterImage }) {
   return (
@@ -16,9 +16,6 @@ function MovieCard({ name, posterImage }) {
   );
 }
 
-MovieCard.propTypes = {
-  name: PropTypes.string.isRequired,
-  posterImage: PropTypes.string.isRequired,
-};
+MovieCard.propTypes = types.movie;
 
 export { MovieCard };

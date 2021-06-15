@@ -1,6 +1,7 @@
 import React from 'react';
-import { MovieCard } from '../movie-card/movie-card';
+import { MovieCard } from '../../MovieCard/MovieCard';
 import PropTypes from 'prop-types';
+import * as types from '../../../types';
 
 function Main({ movies }) {
   return (
@@ -237,10 +238,9 @@ function Main({ movies }) {
           </ul>
 
           <div className="catalog__films-list">
-            {movies.map((movie) => {
-              const { id, ...rest } = movie;
-              return <MovieCard key={id} {...rest} />;
-            })}
+            {movies.map((movie) => (
+              <MovieCard key={movie.id} {...movie} />
+            ))}
           </div>
 
           <div className="catalog__more">
@@ -269,7 +269,7 @@ function Main({ movies }) {
 }
 
 Main.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.shape(MovieCard.propTypes)).isRequired,
+  movies: PropTypes.arrayOf(types.movie).isRequired,
 };
 
 export { Main };
