@@ -32,6 +32,7 @@ RouteWithCurrentMovie.propTypes = {
   component: PropTypes.elementType.isRequired,
   movies: PropTypes.arrayOf(moviePropTypes).isRequired,
   path: PropTypes.string.isRequired,
+  match: PropTypes.object,
 };
 
 export { RouteWithCurrentMovie };
