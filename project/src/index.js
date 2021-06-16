@@ -1,13 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { App } from './components/App/App';
-import { nanoid } from '@reduxjs/toolkit';
 
-const movies = [...Array(20)].map(() => ({
-  id: nanoid(),
-  name: 'Fantastic Beasts: The Crimes of Grindelwald',
-  posterImage: 'img/fantastic-beasts-the-crimes-of-grindelwald.jpg',
-}));
+import { movies } from './mocks/movies';
 
 ReactDOM.render(
   <React.StrictMode>
