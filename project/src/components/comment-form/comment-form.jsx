@@ -1,19 +1,27 @@
 import React, { useState } from 'react';
 import { Rating } from '../rating/rating';
 
+const defaultRatingValue = 5;
+const minCommentLength = 50;
+
 function CommentForm() {
-  const [review, setReview] = useState(null);
+  const [rating, setRating] = useState(defaultRatingValue);
+  const [comment, setComment] = useState('');
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
+  };
 
-    const formData = new FormData(e.target);
-    setReview(Object.fromEntries(formData));
+  const changeRatingHandler = (value) => {
+    setRating(value);
+  };
+
+  const changeCommentHandler = (e) => {
+    setComment(e.target.value);
   };
 
   return (
-    <form action="#" className="add-review__form" onSubmit={formSubmitHandler}>
-      <Rating />
+    <form className="add-review__form" onSubmit={formSubmitHandler}>
 
       <div className="add-review__text">
         <textarea
@@ -21,16 +29,19 @@ function CommentForm() {
           name="comment"
           id="comment"
           placeholder="Review text"
-          defaultValue={''}
+          value={comment}
+          onChange={changeCommentHandler}
         />
         <div className="add-review__submit">
-          <button className="add-review__btn" type="submit">
+          <button
+            className="add-review__btn"
+            type="submit"
+            disabled={comment.length < minCommentLength}
+          >
             Post
           </button>
         </div>
       </div>
-      {/*временно, чтобы не ругался линтер*/}
-      {JSON.stringify(review)}
     </form>
   );
 }
