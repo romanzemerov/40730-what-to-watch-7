@@ -14,7 +14,7 @@ const stars = [
   { id: 10 },
 ].reverse();
 
-function Rating({ value = 5, onChange }) {
+function Rating({ value, onChange }) {
   return (
     <div className="rating">
       <div className="rating__stars">
