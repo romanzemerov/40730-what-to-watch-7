@@ -2,27 +2,25 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const stars = [
-  { id: 1, value: 1 },
-  { id: 2, value: 2 },
-  { id: 3, value: 3 },
-  { id: 4, value: 4 },
-  { id: 5, value: 5 },
-  { id: 6, value: 6 },
-  { id: 7, value: 7 },
-  { id: 8, value: 8 },
-  { id: 9, value: 9 },
-  { id: 10, value: 10 },
+  { id: 1 },
+  { id: 2 },
+  { id: 3 },
+  { id: 4 },
+  { id: 5 },
+  { id: 6 },
+  { id: 7 },
+  { id: 8 },
+  { id: 9 },
+  { id: 10 },
 ].reverse();
 
-function Rating({ defaultRating = 5 }) {
-  const [activeId, setActiveId] = useState(defaultRating);
-
+function Rating({ value = 5, onChange }) {
   return (
     <div className="rating">
       <div className="rating__stars">
-        {stars.map(({ id, value }) => {
+        {stars.map(({ id }) => {
           const name = `star-${id}`;
-          const isChecked = id === activeId;
+          const isChecked = value === id;
 
           return (
             <React.Fragment key={name}>
@@ -32,8 +30,8 @@ function Rating({ defaultRating = 5 }) {
                 type="radio"
                 name="rating"
                 checked={isChecked}
-                defaultValue={value}
-                onChange={() => setActiveId(id)}
+                defaultValue={id}
+                onChange={() => onChange(id)}
               />
               <label className="rating__label" htmlFor={name}>
                 Rating {id}
@@ -47,7 +45,8 @@ function Rating({ defaultRating = 5 }) {
 }
 
 Rating.propTypes = {
-  defaultRating: PropTypes.number,
+  value: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export { Rating };

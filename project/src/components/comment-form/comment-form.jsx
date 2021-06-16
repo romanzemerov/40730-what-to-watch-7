@@ -22,6 +22,7 @@ function CommentForm() {
 
   return (
     <form className="add-review__form" onSubmit={formSubmitHandler}>
+      <Rating value={rating} onChange={changeRatingHandler} />
 
       <div className="add-review__text">
         <textarea
