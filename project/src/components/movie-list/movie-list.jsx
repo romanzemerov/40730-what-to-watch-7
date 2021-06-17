@@ -1,63 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { MovieCard } from '../movie-card/movie-card';
 import PropTypes from 'prop-types';
 import { moviePropTypes } from '../../types/movie.prop';
-
-const SHOW_PLAYER_TIMEOUT = 1000;
 
 function MovieList({ movies }) {
   const [activeMovie, setActiveMovie] = useState('');
   const listRef = useRef(null);
 
-  const videoEndedHandler = () => {
-    setActiveMovie('');
+  const changeActiveMovieHandler = (movieId) => {
+    setActiveMovie(movieId);
   };
-
-  useEffect(() => {
-    const listNode = listRef.current;
-    const cardSelector = '.small-film-card[data-id]';
-    let currentCardNode;
-    let timeoutId;
-
-    listNode.onmouseover = (e) => {
-      if (currentCardNode) {
-        return;
-      }
-
-      const cardNode = e.target.closest(cardSelector);
-      if (!cardNode) {
-        return;
-      }
-
-      currentCardNode = cardNode;
-
-      timeoutId = setTimeout(() => {
-        const cardId = currentCardNode.dataset.id;
-        setActiveMovie(cardId);
-      }, SHOW_PLAYER_TIMEOUT);
-    };
-
-    listNode.onmouseout = (e) => {
-      if (!currentCardNode) {
-        return;
-      }
-
-      const cardNode = e.relatedTarget?.closest(cardSelector);
-      if (cardNode && cardNode === currentCardNode) {
-        return;
-      }
-
-      setActiveMovie(null);
-      clearTimeout(timeoutId);
-      currentCardNode = null;
-    };
-
-    return () => {
-      clearTimeout(timeoutId);
-      listNode.onmouseover = null;
-      listNode.onmouseout = null;
-    };
-  }, []);
 
   return (
     <>
@@ -76,7 +28,7 @@ function MovieList({ movies }) {
               previewImage={previewImage}
               previewVideoLink={previewVideoLink}
               isActive={isActive}
-              videoEndedHandler={videoEndedHandler}
+              onChangeActiveMovie={changeActiveMovieHandler}
             />
           );
         })}

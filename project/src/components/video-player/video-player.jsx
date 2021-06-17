@@ -2,11 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 function VideoPlayer({ src, poster, autoPlay = true, muted = false, onEnded }) {
-  const videoRef = useRef();
+  const videoRef = useRef(null);
 
   useEffect(() => {
     const videoNode = videoRef.current;
-    videoNode.onended = () => onEnded();
+    videoNode.onended = () => onEnded('');
 
     return () => {
       videoNode.onended = null;

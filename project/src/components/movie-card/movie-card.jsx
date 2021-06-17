@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { VideoPlayer } from '../video-player/video-player';
+
+const SHOW_PLAYER_TIMEOUT = 1000;
 
 function MovieCard({
   id,
@@ -10,10 +12,30 @@ function MovieCard({
   previewImage,
   previewVideoLink,
   isActive,
-  videoEndedHandler,
+  onChangeActiveMovie,
 }) {
+  const timeoutId = useRef(null);
+
+  const mouseEnterHandler = () => {
+    timeoutId.current = setTimeout(
+      () => onChangeActiveMovie(id),
+      SHOW_PLAYER_TIMEOUT,
+    );
+  };
+
+  const mouseLeaveHandler = () => {
+    clearTimeout(timeoutId.current);
+    onChangeActiveMovie('');
+  };
+
+  useEffect(() => () => clearTimeout(timeoutId.current));
+
   return (
-    <article className="small-film-card catalog__films-card" data-id={id}>
+    <article
+      className="small-film-card catalog__films-card"
+      onMouseEnter={mouseEnterHandler}
+      onMouseLeave={mouseLeaveHandler}
+    >
       <div className="small-film-card__image">
         <img src={posterImage} alt={name} width="280" height="175" />
       </div>
@@ -27,7 +49,7 @@ function MovieCard({
           src={previewVideoLink}
           poster={previewImage}
           muted
-          onEnded={videoEndedHandler}
+          onEnded={onChangeActiveMovie}
         />
       )}
     </article>
@@ -41,7 +63,7 @@ MovieCard.propTypes = {
   previewVideoLink: PropTypes.string.isRequired,
   isActive: PropTypes.bool.isRequired,
   previewImage: PropTypes.string.isRequired,
-  videoEndedHandler: PropTypes.func.isRequired,
+  onChangeActiveMovie: PropTypes.func.isRequired,
 };
 
 export { MovieCard };
