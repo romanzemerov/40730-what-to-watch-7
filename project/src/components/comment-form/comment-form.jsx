@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Rating } from '../rating/rating';
 
-const defaultRatingValue = 5;
-const minCommentLength = 50;
+const DEFAULT_RATING_VALUE = 0;
+const MIN_COMMENT_LENGTH = 50;
 
 function CommentForm() {
-  const [rating, setRating] = useState(defaultRatingValue);
+  const [rating, setRating] = useState(DEFAULT_RATING_VALUE);
   const [comment, setComment] = useState('');
 
   const formSubmitHandler = (e) => {
@@ -37,7 +37,7 @@ function CommentForm() {
           <button
             className="add-review__btn"
             type="submit"
-            disabled={comment.length < minCommentLength}
+            disabled={comment.length < MIN_COMMENT_LENGTH}
           >
             Post
           </button>

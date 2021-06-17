@@ -1,19 +1,35 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { MovieCard } from '../movie-card/movie-card';
 import PropTypes from 'prop-types';
 import { moviePropTypes } from '../../types/movie.prop';
 
 function MovieList({ movies }) {
-  // const [activeMovie, setActiveMovie] = useState('');
+  const [activeMovie, setActiveMovie] = useState('');
+  const listRef = useRef(null);
+
+  const changeActiveMovieHandler = (movieId) => {
+    setActiveMovie(movieId);
+  };
 
   return (
     <>
-      <div className="catalog__films-list">
+      <div className="catalog__films-list" ref={listRef}>
         {movies.map((movie) => {
-          const { id, name, posterImage } = movie;
+          const { id, name, posterImage, previewVideoLink, previewImage } =
+            movie;
+          const isActive = activeMovie === id;
 
           return (
-            <MovieCard key={id} id={id} name={name} posterImage={posterImage} />
+            <MovieCard
+              key={id}
+              id={id}
+              name={name}
+              posterImage={posterImage}
+              previewImage={previewImage}
+              previewVideoLink={previewVideoLink}
+              isActive={isActive}
+              onChangeActiveMovie={changeActiveMovieHandler}
+            />
           );
         })}
       </div>
