@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { MovieCard } from '../movie-card/movie-card';
 import PropTypes from 'prop-types';
 import { moviePropTypes } from '../../types/movie.prop';
