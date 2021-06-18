@@ -15,10 +15,10 @@ function Tab({ id, label, isActive, onClick }) {
 }
 
 Tab.propTypes = {
-  id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  isActive: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
+  id: PropTypes.string,
+  isActive: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 export { Tab };
