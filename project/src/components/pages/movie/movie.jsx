@@ -4,12 +4,7 @@ import { PageHeader } from '../../page-header/page-header';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { moviePropTypes } from '../../../types/movie.prop';
-
-const getFormatTime = (minutes) => {
-  const date = new Date(minutes * 60 * 1000);
-
-  return `${date.getUTCHours()}h ${date.getUTCMinutes()}m`;
-};
+import { MovieDescription } from '../../movie-description/movie-description';
 
 function Movie({ movie, history, match }) {
   const { url } = match;
@@ -73,75 +68,7 @@ function Movie({ movie, history, match }) {
                 height={327}
               />
             </div>
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item">
-                    <a href className="film-nav__link">
-                      Overview
-                    </a>
-                  </li>
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href className="film-nav__link">
-                      Details
-                    </a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href className="film-nav__link">
-                      Reviews
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-              <div className="film-card__text film-card__row">
-                <div className="film-card__text-col">
-                  <p className="film-card__details-item">
-                    <strong className="film-card__details-name">
-                      Director
-                    </strong>
-                    <span className="film-card__details-value">
-                      {movie.director}
-                    </span>
-                  </p>
-                  <p className="film-card__details-item">
-                    <strong className="film-card__details-name">
-                      Starring
-                    </strong>
-                    <span className="film-card__details-value">
-                      {movie.starring.map((star, i) => (
-                        <React.Fragment key={star}>
-                          {`${star},`} <br />
-                        </React.Fragment>
-                      ))}
-                    </span>
-                  </p>
-                </div>
-                <div className="film-card__text-col">
-                  <p className="film-card__details-item">
-                    <strong className="film-card__details-name">
-                      Run Time
-                    </strong>
-                    <span className="film-card__details-value">
-                      {getFormatTime(movie.runTime)}
-                    </span>
-                  </p>
-                  <p className="film-card__details-item">
-                    <strong className="film-card__details-name">Genre</strong>
-                    <span className="film-card__details-value">
-                      {movie.genre}
-                    </span>
-                  </p>
-                  <p className="film-card__details-item">
-                    <strong className="film-card__details-name">
-                      Released
-                    </strong>
-                    <span className="film-card__details-value">
-                      {movie.released}
-                    </span>
-                  </p>
-                </div>
-              </div>
-            </div>
+            <MovieDescription movie={movie} />
           </div>
         </div>
       </section>
