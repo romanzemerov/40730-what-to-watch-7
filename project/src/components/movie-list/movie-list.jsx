@@ -5,7 +5,6 @@ import { moviePropTypes } from '../../types/movie.prop';
 
 function MovieList({ movies }) {
   const [activeMovie, setActiveMovie] = useState('');
-  const listRef = useRef(null);
 
   const changeActiveMovieHandler = (movieId) => {
     setActiveMovie(movieId);
@@ -13,7 +12,7 @@ function MovieList({ movies }) {
 
   return (
     <>
-      <div className="catalog__films-list" ref={listRef}>
+      <div className="catalog__films-list">
         {movies.map((movie) => {
           const { id, name, posterImage, previewVideoLink, previewImage } =
             movie;
