@@ -1,11 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { MovieCard } from '../movie-card/movie-card';
 import PropTypes from 'prop-types';
 import { moviePropTypes } from '../../types/movie.prop';
 
 function MovieList({ movies }) {
   const [activeMovie, setActiveMovie] = useState('');
-  const listRef = useRef(null);
 
   const changeActiveMovieHandler = (movieId) => {
     setActiveMovie(movieId);
@@ -13,7 +12,7 @@ function MovieList({ movies }) {
 
   return (
     <>
-      <div className="catalog__films-list" ref={listRef}>
+      <div className="catalog__films-list">
         {movies.map((movie) => {
           const { id, name, posterImage, previewVideoLink, previewImage } =
             movie;
