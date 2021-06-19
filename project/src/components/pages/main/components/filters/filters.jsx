@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import {
-  changeGenresFilter,
-  clearGenresFilter,
-} from '../../../../../store/actions';
+import { changeGenresFilter, clearGenresFilter } from '../../../../../store/actions';
 import { FilterItem } from './components/filter-item';
 import { moviePropTypes } from '../../../../../types/movie.prop';
 import PropTypes from 'prop-types';
@@ -12,7 +9,7 @@ const ALL_GENRES = 'All genres';
 
 function Filters({ movies, genre, changeGenresFilter, clearGenresFilter }) {
   const [activeGenre, setActiveGenre] = useState(genre);
-  const genres = [...new Set(movies.map(({ genre }) => genre))];
+  const genres = [...new Set(movies.map((movie) => movie.genre))];
 
   const clearFilterHandler = () => {
     setActiveGenre('');
@@ -26,11 +23,7 @@ function Filters({ movies, genre, changeGenresFilter, clearGenresFilter }) {
 
   return (
     <ul className="catalog__genres-list">
-      <FilterItem
-        label={ALL_GENRES}
-        isActive={activeGenre === ''}
-        onClick={clearFilterHandler}
-      />
+      <FilterItem label={ALL_GENRES} isActive={activeGenre === ''} onClick={clearFilterHandler} />
 
       {genres &&
         genres.map((genre) => {
