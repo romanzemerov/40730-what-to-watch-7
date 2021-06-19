@@ -4,8 +4,10 @@ import { moviePropTypes } from '../../../types/movie.prop';
 import { MovieList } from '../../movie-list/movie-list';
 import { PageFooter } from '../../page-footer/page-footer';
 import { PageHeader } from '../../page-header/page-header';
+import Filters from './components/filters/filters';
+import { connect } from 'react-redux';
 
-function Main({ movies }) {
+function Main({ filteredMovies }) {
   return (
     <>
       <section className="film-card">
@@ -67,69 +69,24 @@ function Main({ movies }) {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href className="catalog__genres-link">
-                All genres
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href className="catalog__genres-link">
-                Comedies
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href className="catalog__genres-link">
-                Crime
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href className="catalog__genres-link">
-                Documentary
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href className="catalog__genres-link">
-                Dramas
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href className="catalog__genres-link">
-                Horror
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href className="catalog__genres-link">
-                Kids & Family
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href className="catalog__genres-link">
-                Romance
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href className="catalog__genres-link">
-                Sci-Fi
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href className="catalog__genres-link">
-                Thrillers
-              </a>
-            </li>
-          </ul>
+          <Filters />
         </section>
 
-        <MovieList movies={movies} />
+        <MovieList movies={filteredMovies} />
         <PageFooter />
       </div>
     </>
   );
 }
 
+const mapStateToProps = (state) => ({
+  filteredMovies: state.filteredMovies,
+});
+
 Main.propTypes = {
-  movies: PropTypes.arrayOf(moviePropTypes).isRequired,
+  filteredMovies: PropTypes.arrayOf(moviePropTypes).isRequired,
 };
 
 export { Main };
+
+export default connect(mapStateToProps)(Main);
