@@ -1,5 +1,5 @@
 import React from 'react';
-import { Main } from '../pages/main/main';
+import Main from '../pages/main/main';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { AppRoutes } from '../../const';
