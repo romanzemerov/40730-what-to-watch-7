@@ -10,8 +10,8 @@ import PropTypes from 'prop-types';
 
 const ALL_GENRES = 'All genres';
 
-function Filters({ movies, changeGenresFilter, clearGenresFilter }) {
-  const [activeGenre, setActiveGenre] = useState('');
+function Filters({ movies, genre, changeGenresFilter, clearGenresFilter }) {
+  const [activeGenre, setActiveGenre] = useState(genre);
   const genres = [...new Set(movies.map(({ genre }) => genre))];
 
   const clearFilterHandler = () => {
@@ -51,6 +51,7 @@ function Filters({ movies, changeGenresFilter, clearGenresFilter }) {
 
 const mapStateToProps = (state) => ({
   movies: state.movies,
+  genre: state.genre,
 });
 
 const mapDispatchToProps = {
@@ -60,6 +61,7 @@ const mapDispatchToProps = {
 
 Filters.propTypes = {
   movies: PropTypes.arrayOf(moviePropTypes).isRequired,
+  genre: PropTypes.string.isRequired,
   changeGenresFilter: PropTypes.func.isRequired,
   clearGenresFilter: PropTypes.func.isRequired,
 };
