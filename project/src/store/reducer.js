@@ -19,7 +19,7 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         genre: initialState.genre,
-        filteredMovies: initialState.movies,
+        filteredMovies: state.movies,
       };
     default:
       return state;
