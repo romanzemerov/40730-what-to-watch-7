@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { MovieCard } from '../movie-card/movie-card';
 import { moviePropTypes } from '../../types/movie.prop';
 import { ShowMore } from './components/show-more/show-more';
+import { useUpdateEffect } from '../../hooks/useUpdateEffect';
 import PropTypes from 'prop-types';
 
 const MOVIES_COUNT = 8;
@@ -13,7 +14,11 @@ function MovieList({ movies }) {
   const [activeMovie, setActiveMovie] = useState('');
   const [page, setPage] = useState(1);
   const [showingMovies, setShowingMovies] = useState(getShowingMovies(movies, page));
-  const isFirstRender = useRef(true);
+
+  const setShowingMoviesMemo = useCallback(
+    () => setShowingMovies(getShowingMovies(movies, page)),
+    [movies, page],
+  );
 
   const changeActiveMovieHandler = (movieId) => {
     setActiveMovie(movieId);
@@ -23,15 +28,7 @@ function MovieList({ movies }) {
     setPage((prev) => prev + 1);
   };
 
-  useEffect(() => {
-    if (isFirstRender.current === false) {
-      setShowingMovies(getShowingMovies(movies, page));
-    }
-  }, [page, movies]);
-
-  useEffect(() => {
-    isFirstRender.current = false;
-  }, []);
+  useUpdateEffect(setShowingMoviesMemo, [movies, page]);
 
   return (
     <>
