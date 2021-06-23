@@ -1,21 +1,40 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { MovieCard } from '../movie-card/movie-card';
-import PropTypes from 'prop-types';
 import { moviePropTypes } from '../../types/movie.prop';
+import { ShowMore } from './components/show-more/show-more';
+import { useUpdateEffect } from '../../hooks/useUpdateEffect';
+import PropTypes from 'prop-types';
+
+const MOVIES_COUNT = 8;
+
+const getShowingMovies = (movies, page, maxMoviesCount = MOVIES_COUNT) =>
+  movies.slice(0, page * maxMoviesCount);
 
 function MovieList({ movies }) {
   const [activeMovie, setActiveMovie] = useState('');
+  const [page, setPage] = useState(1);
+  const [showingMovies, setShowingMovies] = useState(getShowingMovies(movies, page));
+
+  const setShowingMoviesMemo = useCallback(
+    () => setShowingMovies(getShowingMovies(movies, page)),
+    [movies, page],
+  );
 
   const changeActiveMovieHandler = (movieId) => {
     setActiveMovie(movieId);
   };
 
+  const showMoreClickHandler = () => {
+    setPage((prev) => prev + 1);
+  };
+
+  useUpdateEffect(setShowingMoviesMemo, [movies, page]);
+
   return (
     <>
       <div className="catalog__films-list">
-        {movies.map((movie) => {
-          const { id, name, posterImage, previewVideoLink, previewImage } =
-            movie;
+        {showingMovies.map((movie) => {
+          const { id, name, posterImage, previewVideoLink, previewImage } = movie;
           const isActive = activeMovie === id;
 
           return (
@@ -33,11 +52,7 @@ function MovieList({ movies }) {
         })}
       </div>
 
-      <div className="catalog__more">
-        <button className="catalog__button" type="button">
-          Show more
-        </button>
-      </div>
+      {movies.length !== showingMovies.length && <ShowMore onClick={showMoreClickHandler} />}
     </>
   );
 }

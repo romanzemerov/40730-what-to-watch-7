@@ -12,10 +12,7 @@ function Main({ filteredMovies }) {
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img
-            src="img/bg-the-grand-budapest-hotel.jpg"
-            alt="The Grand Budapest Hotel"
-          />
+          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -41,19 +38,13 @@ function Main({ filteredMovies }) {
               </p>
 
               <div className="film-card__buttons">
-                <button
-                  className="btn btn--play film-card__button"
-                  type="button"
-                >
+                <button className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button
-                  className="btn btn--list film-card__button"
-                  type="button"
-                >
+                <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
@@ -70,9 +61,9 @@ function Main({ filteredMovies }) {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <Filters />
+          <MovieList movies={filteredMovies} />
         </section>
 
-        <MovieList movies={filteredMovies} />
         <PageFooter />
       </div>
     </>
