@@ -6,3 +6,14 @@ export const AppRoutes = {
   WATCH_LIST: '/mylist',
   ADD_REVIEW: '/films/:id/review',
 };
+
+export const APIRoute = {
+  MOVIES: '/films',
+};
+
+export const LOADING_STATES = {
+  IDLE: 'idle',
+  LOADING: 'loading',
+  SUCCEEDED: 'succeeded',
+  FAILED: 'failed',
+};

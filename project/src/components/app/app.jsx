@@ -2,7 +2,7 @@ import React from 'react';
 import Main from '../pages/main/main';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { AppRoutes } from '../../const';
+import { AppRoutes, LOADING_STATES } from '../../const';
 import { SignIn } from '../pages/sign-in/sign-in';
 import { WatchList } from '../pages/watch-list/watch-list';
 import { Movie } from '../pages/movie/movie';
@@ -12,8 +12,14 @@ import { NotFound } from '../pages/not-found/not-found';
 import { moviePropTypes } from '../../types/movie.prop';
 import { SvgSprite } from '../svg-sprite/svg-sprite';
 import { RouteWithCurrentMovie } from '../route-with-current-movie/route-with-current-movie';
+import { LoadingScreen } from '../loading-screen/loading-screen';
+import { connect } from 'react-redux';
 
-function App({ movies }) {
+function App({ movies, moviesStatus }) {
+  if (moviesStatus === LOADING_STATES.LOADING) {
+    return <LoadingScreen />;
+  }
+
   return (
     <>
       <SvgSprite />
@@ -28,23 +34,14 @@ function App({ movies }) {
           <Route path={AppRoutes.WATCH_LIST}>
             <WatchList movies={movies} />
           </Route>
-          <RouteWithCurrentMovie
-            path={AppRoutes.MOVIE}
-            movies={movies}
-            component={Movie}
-            exact
-          />
+          <RouteWithCurrentMovie path={AppRoutes.MOVIE} movies={movies} component={Movie} exact />
           <RouteWithCurrentMovie
             path={AppRoutes.ADD_REVIEW}
             movies={movies}
             component={AddReview}
             exact
           />
-          <RouteWithCurrentMovie
-            path={AppRoutes.PLAYER}
-            movies={movies}
-            component={Player}
-          />
+          <RouteWithCurrentMovie path={AppRoutes.PLAYER} movies={movies} component={Player} />
           <Route>
             <NotFound />
           </Route>
@@ -54,8 +51,15 @@ function App({ movies }) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  movies: state.movies,
+  moviesStatus: state.moviesStatus,
+});
+
 App.propTypes = {
   movies: PropTypes.arrayOf(moviePropTypes).isRequired,
+  moviesStatus: PropTypes.string.isRequired,
 };
 
 export { App };
+export default connect(mapStateToProps)(App);
