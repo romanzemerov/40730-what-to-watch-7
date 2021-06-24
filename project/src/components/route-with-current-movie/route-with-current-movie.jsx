@@ -4,25 +4,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { moviePropTypes } from '../../types/movie.prop';
 
-function RouteWithCurrentMovie({
-  component: Component,
-  path,
-  movies,
-  ...rest
-}) {
+function RouteWithCurrentMovie({ component: Component, path, movies, ...rest }) {
   return (
     <Route
       path={path}
       {...rest}
       render={(props) => {
-        const { id } = props.match.params;
+        const id = +props.match.params.id;
         const currentMovie = movies.find((movie) => movie.id === id);
 
-        return currentMovie ? (
-          <Component movie={currentMovie} {...props} />
-        ) : (
-          <NotFound />
-        );
+        return currentMovie ? <Component movie={currentMovie} {...props} /> : <NotFound />;
       }}
     />
   );

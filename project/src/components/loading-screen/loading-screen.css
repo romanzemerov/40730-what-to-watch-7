@@ -1,0 +1,35 @@
+.loading-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(-180deg,#180202 0,#000 100%);
+}
+
+.star1 {
+  animation: stars-pulse 1s ease-in-out infinite;
+  left: 0;
+}
+
+.star2 {
+  animation: stars-pulse 1s 0.2s ease-in-out infinite;
+  left: 25px;
+}
+
+.star3 {
+  animation: stars-pulse 1s 0.4s ease-in-out infinite;
+  left: 50px;
+}
+
+@keyframes stars-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 export const moviePropTypes = PropTypes.shape({
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   posterImage: PropTypes.string.isRequired,
   previewImage: PropTypes.string.isRequired,

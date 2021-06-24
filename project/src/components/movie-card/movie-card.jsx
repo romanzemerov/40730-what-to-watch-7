@@ -17,10 +17,7 @@ function MovieCard({
   const timeoutId = useRef(null);
 
   const mouseEnterHandler = () => {
-    timeoutId.current = setTimeout(
-      () => onChangeActiveMovie(id),
-      SHOW_PLAYER_TIMEOUT,
-    );
+    timeoutId.current = setTimeout(() => onChangeActiveMovie(id), SHOW_PLAYER_TIMEOUT);
   };
 
   const mouseLeaveHandler = () => {
@@ -57,7 +54,7 @@ function MovieCard({
 }
 
 MovieCard.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   posterImage: PropTypes.string.isRequired,
   previewVideoLink: PropTypes.string.isRequired,
