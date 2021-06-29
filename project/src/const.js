@@ -9,11 +9,18 @@ export const AppRoutes = {
 
 export const APIRoute = {
   MOVIES: '/films',
+  LOGIN: '/login',
 };
 
-export const LOADING_STATES = {
-  IDLE: 'idle',
-  LOADING: 'loading',
-  SUCCEEDED: 'succeeded',
-  FAILED: 'failed',
+export const loadingStates = {
+  IDLE: 'IDLE',
+  LOADING: 'LOADING',
+  SUCCEEDED: 'SUCCEEDED',
+  FAILED: 'FAILED',
+};
+
+export const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
 };

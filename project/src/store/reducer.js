@@ -1,11 +1,15 @@
 import { ActionType } from './actions';
-import { LOADING_STATES } from '../const';
+import { AuthorizationStatus, loadingStates } from '../const';
 
 const initialState = {
   movies: [],
-  moviesStatus: LOADING_STATES.IDLE,
+  moviesStatus: loadingStates.IDLE,
   genre: '',
   filteredMovies: [],
+  user: {},
+  loginStatus: loadingStates.IDLE,
+  loginError: '',
+  authorizationStatus: AuthorizationStatus.UNKNOWN,
 };
 
 export const reducer = (state = initialState, action) => {
@@ -26,20 +30,40 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         movies: initialState.movies,
-        moviesStatus: LOADING_STATES.LOADING,
+        moviesStatus: loadingStates.LOADING,
       };
     case ActionType.GET_MOVIES_SUCCESS:
       return {
         ...state,
         movies: action.payload,
-        moviesStatus: LOADING_STATES.SUCCEEDED,
+        moviesStatus: loadingStates.SUCCEEDED,
         filteredMovies: action.payload,
       };
     case ActionType.GET_MOVIES_ERROR:
       return {
         ...state,
-        moviesStatus: LOADING_STATES.FAILED,
+        moviesStatus: loadingStates.FAILED,
       };
+    case ActionType.LOGIN_REQUEST: {
+      return { ...state, loginStatus: loadingStates.LOADING };
+    }
+    case ActionType.LOGIN_SUCCESS: {
+      return {
+        ...state,
+        loginStatus: loadingStates.SUCCEEDED,
+        user: action.payload,
+        loginError: initialState.loginError,
+      };
+    }
+    case ActionType.LOGIN_ERROR: {
+      return { ...state, loginStatus: loadingStates.FAILED, loginError: action.payload };
+    }
+    case ActionType.CHANGE_AUTH_STATUS: {
+      return { ...state, authorizationStatus: action.payload };
+    }
+    case ActionType.UPDATE_USER: {
+      return { ...state, user: action.payload };
+    }
     default:
       return state;
   }
