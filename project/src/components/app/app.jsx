@@ -14,6 +14,7 @@ import { SvgSprite } from '../svg-sprite/svg-sprite';
 import { RouteWithCurrentMovie } from '../route-with-current-movie/route-with-current-movie';
 import { LoadingScreen } from '../loading-screen/loading-screen';
 import { connect } from 'react-redux';
+import PrivateRoute from '../private-route/private-route';
 
 function App({ movies, moviesStatus }) {
   if (moviesStatus === LOADING_STATES.LOADING) {
@@ -31,9 +32,11 @@ function App({ movies, moviesStatus }) {
           <Route path={AppRoutes.SIGN_IN}>
             <SignIn />
           </Route>
-          <Route path={AppRoutes.WATCH_LIST}>
-            <WatchList movies={movies} />
-          </Route>
+          <PrivateRoute
+            path={AppRoutes.WATCH_LIST}
+            exact={false}
+            render={() => <WatchList movies={movies} />}
+          />
           <RouteWithCurrentMovie path={AppRoutes.MOVIE} movies={movies} component={Movie} exact />
           <RouteWithCurrentMovie
             path={AppRoutes.ADD_REVIEW}
