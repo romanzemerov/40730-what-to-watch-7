@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { moviePropTypes } from '../../../types/movie.prop';
 import { MovieList } from '../../movie-list/movie-list';
 import { PageFooter } from '../../page-footer/page-footer';
-import { PageHeader } from '../../page-header/page-header';
+import PageHeader from '../../page-header/page-header';
 import Filters from './components/filters/filters';
 import { connect } from 'react-redux';
 

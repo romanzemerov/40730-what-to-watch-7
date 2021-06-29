@@ -12,7 +12,7 @@ const formFields = [
   {
     name: 'email',
     label: 'Email address',
-    value: 'ssdsd@sdsd.com',
+    value: '',
     error: '',
     validate: {
       fn: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
@@ -22,7 +22,7 @@ const formFields = [
   {
     name: 'password',
     label: 'Password',
-    value: '   ',
+    value: '',
     error: '',
     validate: {
       fn: (value) => value.trim().length !== 0,

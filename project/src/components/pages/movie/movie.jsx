@@ -1,6 +1,6 @@
 import React from 'react';
 import { PageFooter } from '../../page-footer/page-footer';
-import { PageHeader } from '../../page-header/page-header';
+import PageHeader from '../../page-header/page-header';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { moviePropTypes } from '../../../types/movie.prop';
@@ -44,10 +44,7 @@ function Movie({ movie, history, match }) {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button
-                  className="btn btn--list film-card__button"
-                  type="button"
-                >
+                <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width={19} height={20}>
                     <use xlinkHref="#add" />
                   </svg>
@@ -63,12 +60,7 @@ function Movie({ movie, history, match }) {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img
-                src={movie.posterImage}
-                alt={movie.name}
-                width={218}
-                height={327}
-              />
+              <img src={movie.posterImage} alt={movie.name} width={218} height={327} />
             </div>
             <MovieDescription movie={movie} />
           </div>
@@ -77,11 +69,7 @@ function Movie({ movie, history, match }) {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MovieList
-            movies={movies
-              .filter(({ genre }) => genre === movie.genre)
-              .slice(0, 4)}
-          />
+          <MovieList movies={movies.filter(({ genre }) => genre === movie.genre).slice(0, 4)} />
         </section>
         <PageFooter />
       </div>

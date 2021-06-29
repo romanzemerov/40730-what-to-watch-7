@@ -1,7 +1,7 @@
 import React from 'react';
 import { PageFooter } from '../../page-footer/page-footer';
 import { MovieList } from '../../movie-list/movie-list';
-import { PageHeader } from '../../page-header/page-header';
+import PageHeader from '../../page-header/page-header';
 import { moviePropTypes } from '../../../types/movie.prop';
 import PropTypes from 'prop-types';
 
