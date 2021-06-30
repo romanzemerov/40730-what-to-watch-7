@@ -3,22 +3,24 @@ import { connect } from 'react-redux';
 import { FilterItem } from './components/filter-item';
 import { moviePropTypes } from '../../../../../types/movie.prop';
 import PropTypes from 'prop-types';
-import { ActionCreator } from '../../../../../store/actions';
+import { changeGenresFilter, clearGenresFilter } from '../../../../../store/filters/actions';
+import { getMovies } from '../../../../../store/data/selectors';
+import { getGenre } from '../../../../../store/filters/selectors';
 
 const ALL_GENRES = 'All genres';
 
-function Filters({ movies, genre, changeGenresFilter, clearGenresFilter }) {
+function Filters({ movies, genre, changeFilter, clearFilter }) {
   const [activeGenre, setActiveGenre] = useState(genre);
   const genreLabels = [...new Set(movies.map((movie) => movie.genre))];
 
   const clearFilterHandler = () => {
     setActiveGenre('');
-    clearGenresFilter();
+    clearFilter();
   };
 
   const changeGenreHandler = (label) => {
     setActiveGenre(label);
-    changeGenresFilter(label);
+    changeFilter(label);
   };
 
   return (
@@ -37,20 +39,20 @@ function Filters({ movies, genre, changeGenresFilter, clearGenresFilter }) {
 }
 
 const mapStateToProps = (state) => ({
-  movies: state.movies,
-  genre: state.genre,
+  movies: getMovies(state),
+  genre: getGenre(state),
 });
 
 const mapDispatchToProps = {
-  changeGenresFilter: ActionCreator.changeGenresFilter,
-  clearGenresFilter: ActionCreator.clearGenresFilter,
+  changeFilter: changeGenresFilter,
+  clearFilter: clearGenresFilter,
 };
 
 Filters.propTypes = {
   movies: PropTypes.arrayOf(moviePropTypes).isRequired,
   genre: PropTypes.string.isRequired,
-  changeGenresFilter: PropTypes.func.isRequired,
-  clearGenresFilter: PropTypes.func.isRequired,
+  changeFilter: PropTypes.func.isRequired,
+  clearFilter: PropTypes.func.isRequired,
 };
 
 export { Filters };

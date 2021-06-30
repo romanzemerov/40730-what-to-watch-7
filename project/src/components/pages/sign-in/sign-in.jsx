@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { PageFooter } from '../../page-footer/page-footer';
 import PageHeader from '../../page-header/page-header';
-import { login } from '../../../store/async-actions';
 import { connect } from 'react-redux';
 import { AppRoutes, AuthorizationStatus, loadingStates } from '../../../const';
 import { Redirect } from 'react-router-dom';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
+import { getAuthStatus, getLoginError, getLoginStatus } from '../../../store/auth/selectors';
+import { login } from '../../../store/auth/async-actions';
 
 const formFields = [
   {
@@ -140,9 +141,9 @@ function SignIn({ authStatus, doLogin, loginStatus, formError }) {
 }
 
 const mapStateToProps = (state) => ({
-  loginStatus: state.loginStatus,
-  formError: state.loginError,
-  authStatus: state.authorizationStatus,
+  loginStatus: getLoginStatus(state),
+  formError: getLoginError(state),
+  authStatus: getAuthStatus(state),
 });
 
 const mapDispatchToProps = {

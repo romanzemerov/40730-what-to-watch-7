@@ -6,6 +6,7 @@ import { PageFooter } from '../../page-footer/page-footer';
 import PageHeader from '../../page-header/page-header';
 import Filters from './components/filters/filters';
 import { connect } from 'react-redux';
+import { getFilteredMovies } from '../../../store/filters/selectors';
 
 function Main({ filteredMovies }) {
   return (
@@ -71,7 +72,7 @@ function Main({ filteredMovies }) {
 }
 
 const mapStateToProps = (state) => ({
-  filteredMovies: state.filteredMovies,
+  filteredMovies: getFilteredMovies(state),
 });
 
 Main.propTypes = {

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { UserBlock } from './components/user-block';
 import { userPropTypes } from '../../types/user.prop';
+import { getAuthStatus, getUser } from '../../store/auth/selectors';
 
 function PageHeader({ title, breadcrumbs, authStatus, user }) {
   return (
@@ -53,8 +54,8 @@ function PageHeader({ title, breadcrumbs, authStatus, user }) {
 }
 
 const mapStateToProps = (state) => ({
-  authStatus: state.authorizationStatus,
-  user: state.user,
+  authStatus: getAuthStatus(state),
+  user: getUser(state),
 });
 
 PageHeader.propTypes = {
