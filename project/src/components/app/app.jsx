@@ -15,6 +15,7 @@ import { RouteWithCurrentMovie } from '../route-with-current-movie/route-with-cu
 import { LoadingScreen } from '../loading-screen/loading-screen';
 import { connect } from 'react-redux';
 import PrivateRoute from '../private-route/private-route';
+import { getMovies, getMoviesStatus } from '../../store/data/selectors';
 
 function App({ movies, moviesStatus }) {
   if (moviesStatus === loadingStates.LOADING) {
@@ -55,8 +56,8 @@ function App({ movies, moviesStatus }) {
 }
 
 const mapStateToProps = (state) => ({
-  movies: state.movies,
-  moviesStatus: state.moviesStatus,
+  movies: getMovies(state),
+  moviesStatus: getMoviesStatus(state),
 });
 
 App.propTypes = {
