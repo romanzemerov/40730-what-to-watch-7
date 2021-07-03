@@ -6,6 +6,7 @@ import { changeAuthStatus } from './auth/actions';
 import { moviesReducer } from './movies/reducer';
 import { filtersReducer } from './filters/reducer';
 import { redirect } from './middlewares/redirect';
+import { commentsReducer } from './comments/reducer';
 
 const api = createAPI(() => {
   store.dispatch(changeAuthStatus(AuthorizationStatus.NO_AUTH));
@@ -16,6 +17,7 @@ export const store = configureStore({
     movies: moviesReducer,
     auth: authReducer,
     filters: filtersReducer,
+    comments: commentsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -1,12 +1,31 @@
 import React from 'react';
 import { CommentForm } from '../../comment-form/comment-form';
-import { moviePropTypes } from '../../../types/movie.prop';
 import PageHeader from '../../page-header/page-header';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCurrentMovie, getCurrentMovieStatus } from '../../../store/movies/selectors';
+import { LoadingScreen } from '../../loading-screen/loading-screen';
+import { fetchMovie } from '../../../store/movies/async-actions';
+import { useParams } from 'react-router-dom';
+import { loadingStates } from '../../../const';
 
-function AddReview({ movie }) {
+function AddReview() {
+  const { id } = useParams();
+  const movieStatus = useSelector(getCurrentMovieStatus);
+  const movie = useSelector(getCurrentMovie);
+  const dispatch = useDispatch();
+
+  if (movieStatus === loadingStates.IDLE) {
+    dispatch(fetchMovie(id));
+
+    return <LoadingScreen />;
+  }
+
+  if (movieStatus === loadingStates.LOADING) {
+    return <LoadingScreen />;
+  }
+
   // TODO: автоматически генерировать хлебные крошки.
-
-  const breadCrumbs = [{ label: movie.name, href: `films/${movie.id}` }, { label: 'Add Review' }];
+  const breadCrumbs = [{ label: movie.name, href: `/films/${movie.id}` }, { label: 'Add Review' }];
 
   return (
     <div>
@@ -28,9 +47,5 @@ function AddReview({ movie }) {
     </div>
   );
 }
-
-AddReview.propTypes = {
-  movie: moviePropTypes.isRequired,
-};
 
 export { AddReview };

@@ -17,6 +17,7 @@ export const APIRoute = {
   MOVIES: '/films',
   LOGIN: '/login',
   SIMILAR: '/similar',
+  COMMENTS: '/comments',
 };
 
 export const loadingStates = {

@@ -59,3 +59,11 @@ export const transformUserData = (user) => ({
   avatarUrl: user.avatar_url,
   token: user.token,
 });
+
+export const transformCommentData = (comment) => ({
+  id: comment.id,
+  author: comment.user.name,
+  date: comment.date,
+  rating: comment.rating,
+  text: comment.comment,
+});
