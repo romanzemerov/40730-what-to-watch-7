@@ -5,3 +5,11 @@ export const getCommentsSuccess = createAction('comments/fetchCommentsSuccess', 
   payload: comments,
 }));
 export const getCommentsError = createAction('comments/fetchCommentsError');
+
+export const postCommentRequest = createAction('comments/postCommentRequest', (comment) => ({
+  payload: comment,
+}));
+export const postCommentSuccess = createAction('comments/postCommentSuccess', (comments) => ({
+  payload: comments,
+}));
+export const postCommentError = createAction('comments/postCommentError');

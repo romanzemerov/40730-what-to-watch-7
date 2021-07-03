@@ -4,6 +4,9 @@ import {
   getCommentsError,
   getCommentsRequest,
   getCommentsSuccess,
+  postCommentError,
+  postCommentRequest,
+  postCommentSuccess
 } from './actions';
 
 const initialState = {
@@ -11,6 +14,7 @@ const initialState = {
   commentsStatus: loadingStates.IDLE,
   postCommentStatus: loadingStates.IDLE,
 };
+
 export const commentsReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(getCommentsRequest, (state) => {
@@ -24,4 +28,15 @@ export const commentsReducer = createReducer(initialState, (builder) => {
     .addCase(getCommentsError, (state) => {
       state.commentsStatus = loadingStates.FAILED;
     })
+
+    .addCase(postCommentRequest, (state) => {
+      state.postCommentStatus = loadingStates.LOADING;
+    })
+    .addCase(postCommentSuccess, (state, { payload }) => {
+      state.postCommentStatus = loadingStates.SUCCEEDED;
+      state.comments = payload;
+    })
+    .addCase(postCommentError, (state) => {
+      state.postCommentStatus = loadingStates.FAILED;
+    });
 });

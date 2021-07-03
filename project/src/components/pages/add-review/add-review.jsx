@@ -41,7 +41,7 @@ function AddReview() {
           </div>
         </div>
         <div className="add-review">
-          <CommentForm />
+          <CommentForm movieId={id} />
         </div>
       </section>
     </div>
