@@ -1,7 +1,7 @@
 import React from 'react';
 import Main from '../pages/main/main';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
 import { AppRoutes, loadingStates } from '../../const';
 import SignIn from '../pages/sign-in/sign-in';
 import { WatchList } from '../pages/watch-list/watch-list';
@@ -15,7 +15,8 @@ import { RouteWithCurrentMovie } from '../route-with-current-movie/route-with-cu
 import { LoadingScreen } from '../loading-screen/loading-screen';
 import { connect } from 'react-redux';
 import PrivateRoute from '../private-route/private-route';
-import { getMovies, getMoviesStatus } from '../../store/data/selectors';
+import { getMovies, getMoviesStatus } from '../../store/movies/selectors';
+import browserHistory from '../../browser-history';
 
 function App({ movies, moviesStatus }) {
   if (moviesStatus === loadingStates.LOADING) {
@@ -25,7 +26,7 @@ function App({ movies, moviesStatus }) {
   return (
     <>
       <SvgSprite />
-      <Router>
+      <Router history={browserHistory}>
         <Switch>
           <Route path={AppRoutes.MAIN} exact>
             <Main movies={movies} />
@@ -38,13 +39,12 @@ function App({ movies, moviesStatus }) {
             exact={false}
             render={() => <WatchList movies={movies} />}
           />
-          <RouteWithCurrentMovie path={AppRoutes.MOVIE} movies={movies} component={Movie} exact />
-          <RouteWithCurrentMovie
-            path={AppRoutes.ADD_REVIEW}
-            movies={movies}
-            component={AddReview}
-            exact
-          />
+          <Route path={AppRoutes.MOVIE} exact>
+            <Movie />
+          </Route>
+          <Route path={AppRoutes.ADD_REVIEW} movies={movies} component={AddReview} exact>
+            <AddReview />
+          </Route>
           <RouteWithCurrentMovie path={AppRoutes.PLAYER} movies={movies} component={Player} />
           <Route>
             <NotFound />

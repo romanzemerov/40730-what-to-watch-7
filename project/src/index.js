@@ -4,7 +4,7 @@ import App from './components/app/app';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 import { fetchAuthorizationStatus } from './store/auth/async-actions';
-import { fetchMovies } from './store/data/async-actions';
+import { fetchMovies } from './store/movies/async-actions';
 
 store.dispatch(fetchMovies());
 store.dispatch(fetchAuthorizationStatus());

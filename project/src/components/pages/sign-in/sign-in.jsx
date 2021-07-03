@@ -34,12 +34,10 @@ const formFields = [
 ];
 
 const validate = (fields) =>
-  fields.reduce(
-    (res, field) =>
-      field.validate.fn(field.value)
-        ? [...res, { ...field, error: '' }]
-        : [...res, { ...field, error: field.validate.errorText }],
-    [],
+  fields.map((field) =>
+    field.validate.fn(field.value)
+      ? { ...field, error: '' }
+      : { ...field, error: field.validate.errorText },
   );
 
 function SignIn({ authStatus, doLogin, loginStatus, formError }) {

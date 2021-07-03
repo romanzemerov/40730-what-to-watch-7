@@ -4,20 +4,10 @@ import { Tab } from '../tabs/components/tab/tab';
 import { MovieOverview } from './components/movie-overview/movie-overview';
 import { MovieDetails } from './components/movie-details/movie-details';
 import { MovieReviews } from './components/movie-reviews/movie-reviews';
-import { reviews } from '../../mocks/reviews';
 import { moviePropTypes } from '../../types/movie.prop';
 
 function MovieDescription({ movie }) {
-  const {
-    rating,
-    description,
-    director,
-    starring,
-    scoresCount,
-    runTime,
-    genre,
-    released,
-  } = movie;
+  const { rating, description, director, starring, scoresCount, runTime, genre, released } = movie;
 
   return (
     <div className="film-card__desc">
@@ -41,7 +31,7 @@ function MovieDescription({ movie }) {
           />
         </Tab>
         <Tab label={'Reviews'}>
-          <MovieReviews reviews={reviews} />
+          <MovieReviews />
         </Tab>
       </Tabs>
     </div>

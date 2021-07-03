@@ -1,3 +1,8 @@
+export const HttpCodes = {
+  UNAUTHORIZED: 401,
+  NOT_FOUND: 404,
+};
+
 export const AppRoutes = {
   MAIN: '/',
   SIGN_IN: '/login',
@@ -5,11 +10,14 @@ export const AppRoutes = {
   PLAYER: '/player/:id',
   WATCH_LIST: '/mylist',
   ADD_REVIEW: '/films/:id/review',
+  NOT_FOUND: '/404',
 };
 
 export const APIRoute = {
   MOVIES: '/films',
   LOGIN: '/login',
+  SIMILAR: '/similar',
+  COMMENTS: '/comments',
 };
 
 export const loadingStates = {

@@ -4,7 +4,7 @@ import { FilterItem } from './components/filter-item';
 import { moviePropTypes } from '../../../../../types/movie.prop';
 import PropTypes from 'prop-types';
 import { changeGenresFilter, clearGenresFilter } from '../../../../../store/filters/actions';
-import { getMovies } from '../../../../../store/data/selectors';
+import { getMovies } from '../../../../../store/movies/selectors';
 import { getGenre } from '../../../../../store/filters/selectors';
 
 const ALL_GENRES = 'All genres';
