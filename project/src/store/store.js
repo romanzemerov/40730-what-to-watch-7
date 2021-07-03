@@ -3,7 +3,7 @@ import { createAPI } from '../services/api';
 import { AuthorizationStatus } from '../const';
 import { authReducer } from './auth/reducer';
 import { changeAuthStatus } from './auth/actions';
-import { dataReducer } from './data/reducer';
+import { moviesReducer } from './movies/reducer';
 import { filtersReducer } from './filters/reducer';
 
 const api = createAPI(() => {
@@ -12,7 +12,7 @@ const api = createAPI(() => {
 
 export const store = configureStore({
   reducer: {
-    data: dataReducer,
+    movies: moviesReducer,
     auth: authReducer,
     filters: filtersReducer,
   },

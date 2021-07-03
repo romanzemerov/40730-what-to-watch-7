@@ -1,8 +1,5 @@
 import axios from 'axios';
-
-const HttpCode = {
-  UNAUTHORIZED: 401,
-};
+import { HttpCodes } from '../const';
 
 const URL = 'https://7.react.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;
@@ -23,7 +20,7 @@ export const createAPI = (onUnauthorized) => {
   const onFail = (err) => {
     const { response } = err;
 
-    if (response.status === HttpCode.UNAUTHORIZED) {
+    if (response.status === HttpCodes.UNAUTHORIZED) {
       onUnauthorized();
     }
 

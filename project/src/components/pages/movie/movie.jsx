@@ -1,19 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { PageFooter } from '../../page-footer/page-footer';
 import PageHeader from '../../page-header/page-header';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { moviePropTypes } from '../../../types/movie.prop';
+import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import { MovieDescription } from '../../movie-description/movie-description';
 import { MovieList } from '../../movie-list/movie-list';
-import { movies } from '../../../mocks/movies';
+import { LoadingScreen } from '../../loading-screen/loading-screen';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchMovie, fetchSimilarFilms } from '../../../store/movies/async-actions';
+import {
+  getCurrentMovie,
+  getCurrentMovieStatus,
+  getSimilarMovies,
+  getSimilarMoviesStatus
+} from '../../../store/movies/selectors';
+import { AuthorizationStatus, loadingStates } from '../../../const';
+import { getAuthStatus } from '../../../store/auth/selectors';
+import { fetchComments } from '../../../store/comments/async-actions';
 
-function Movie({ movie, history, match }) {
-  const { url } = match;
+function Movie() {
+  const { id } = useParams();
+  const { pathname } = useLocation();
+  const history = useHistory();
+  const movie = useSelector(getCurrentMovie);
+  const movieStatus = useSelector(getCurrentMovieStatus);
+  const similarMovies = useSelector(getSimilarMovies);
+  const similarMoviesStatus = useSelector(getSimilarMoviesStatus);
+  const authStatus = useSelector(getAuthStatus);
+  const dispatch = useDispatch();
 
   const playButtonClickHandler = () => {
-    history.push(`/player/${movie.id}`);
+    history.push(`/player/${id}`);
   };
+
+  useEffect(() => {
+    dispatch(fetchMovie(id));
+    dispatch(fetchSimilarFilms(id));
+    dispatch(fetchComments(id));
+  }, [id, dispatch]);
+
+  if (movieStatus !== loadingStates.SUCCEEDED) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div>
@@ -50,9 +77,11 @@ function Movie({ movie, history, match }) {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to={`${url}/review`} className="btn film-card__button">
-                  Add review
-                </Link>
+                {authStatus === AuthorizationStatus.AUTH && (
+                  <Link to={`${pathname}/review`} className="btn film-card__button">
+                    Add review
+                  </Link>
+                )}
               </div>
             </div>
           </div>
@@ -67,20 +96,17 @@ function Movie({ movie, history, match }) {
         </div>
       </section>
       <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
-          <MovieList movies={movies.filter(({ genre }) => genre === movie.genre).slice(0, 4)} />
-        </section>
+        {similarMoviesStatus === loadingStates.SUCCEEDED ? (
+          <section className="catalog catalog--like-this">
+            <h2 className="catalog__title">More like this</h2>
+            <MovieList movies={similarMovies} />
+          </section>
+        ) : null}
+
         <PageFooter />
       </div>
     </div>
   );
 }
-
-Movie.propTypes = {
-  movie: moviePropTypes.isRequired,
-  history: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
-};
 
 export { Movie };

@@ -29,9 +29,7 @@ function MovieDetails({ director, starring, runTime, genre, released }) {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">
-            {getFormatTime(runTime)}
-          </span>
+          <span className="film-card__details-value">{getFormatTime(runTime)}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>
