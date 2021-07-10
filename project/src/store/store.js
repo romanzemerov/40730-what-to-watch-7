@@ -7,6 +7,7 @@ import { moviesReducer } from './movies/reducer';
 import { filtersReducer } from './filters/reducer';
 import { redirect } from './middlewares/redirect';
 import { commentsReducer } from './comments/reducer';
+import { promoMovieReducer } from './promoMovie/reducer';
 
 const api = createAPI(() => {
   store.dispatch(changeAuthState(AuthorizationStates.NO_AUTH));
