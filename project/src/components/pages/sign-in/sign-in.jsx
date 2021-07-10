@@ -108,7 +108,7 @@ function SignIn({ authState, doLogin, loginStatus, formError }) {
               >
                 <input
                   className="sign-in__input"
-                  type="text"
+                  type={name === 'password' ? 'password' : 'text'}
                   placeholder={label}
                   name={name}
                   id={name}
