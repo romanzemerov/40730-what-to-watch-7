@@ -4,7 +4,7 @@ import { HttpCodes } from '../const';
 const URL = 'https://7.react.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;
 
-const { token } = JSON.parse(localStorage.getItem('user')) ?? '';
+const { token } = JSON.parse(localStorage.getItem('user')) ?? { token: '' };
 
 export const createAPI = (onUnauthorized) => {
   const api = axios.create({
