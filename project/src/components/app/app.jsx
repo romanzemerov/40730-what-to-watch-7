@@ -17,6 +17,8 @@ import { connect } from 'react-redux';
 import PrivateRoute from '../private-route/private-route';
 import { getMovies, getMoviesStatus } from '../../store/movies/selectors';
 import browserHistory from '../../browser-history';
+import { getAuthStatus } from '../../store/auth/selectors';
+import { fetchFavoriteMovies } from '../../store/movies/async-actions';
 import { getPromoMovieStatus } from '../../store/promoMovie/selectors';
 
 function App({ movies, moviesStatus, authStatus, promoMovieStatus }) {
@@ -39,11 +41,7 @@ function App({ movies, moviesStatus, authStatus, promoMovieStatus }) {
           <Route path={AppRoutes.SIGN_IN}>
             <SignIn />
           </Route>
-          <PrivateRoute
-            path={AppRoutes.WATCH_LIST}
-            exact={false}
-            render={() => <WatchList movies={movies} />}
-          />
+          <PrivateRoute path={AppRoutes.WATCH_LIST} render={() => <WatchList />} exact={false} />
           <Route path={AppRoutes.MOVIE} exact>
             <Movie />
           </Route>
@@ -63,12 +61,14 @@ function App({ movies, moviesStatus, authStatus, promoMovieStatus }) {
 const mapStateToProps = (state) => ({
   movies: getMovies(state),
   moviesStatus: getMoviesStatus(state),
+  authStatus: getAuthStatus(state),
   promoMovieStatus: getPromoMovieStatus(state),
 });
 
 App.propTypes = {
   movies: PropTypes.arrayOf(moviePropTypes).isRequired,
   moviesStatus: PropTypes.string.isRequired,
+  authStatus: PropTypes.string.isRequired,
   promoMovieStatus: PropTypes.string.isRequired,
 };
 

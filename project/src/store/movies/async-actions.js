@@ -1,4 +1,10 @@
 import {
+  changeFavoriteStatusError,
+  changeFavoriteStatusRequest,
+  changeFavoriteStatusSuccess,
+  fetchFavoriteMoviesError,
+  fetchFavoriteMoviesRequest,
+  fetchFavoriteMoviesSuccess,
   getMovieError,
   getMovieRequest,
   getMoviesError,
@@ -9,9 +15,10 @@ import {
   getSimilarMoviesRequest,
   getSimilarMoviesSuccess
 } from './actions';
-import { APIRoute, AppRoutes, HttpCodes } from '../../const';
+import { APIRoute, AppRoutes, HttpCodes, loadingStates } from '../../const';
 import { transformMovieData } from '../../services/api';
 import { redirectToRoute } from '../middlewares/redirect';
+import { getFavoriteMoviesStatus } from './selectors';
 
 export const fetchMovies = () => (dispatch, _, api) => {
   dispatch(getMoviesRequest());
@@ -49,6 +56,20 @@ export const fetchSimilarFilms = (id) => (dispatch, _, api) => {
       dispatch(getSimilarMoviesSuccess(data.map(transformMovieData)));
     })
     .catch(() => dispatch(getSimilarMoviesError()));
+};
+
+export const fetchFavoriteMovies = () => (dispatch, getState, api) => {
+  if (getFavoriteMoviesStatus(getState()) === loadingStates.LOADING) {
+    return;
+  }
+
+  dispatch(fetchFavoriteMoviesRequest());
+  api
+    .get(`${APIRoute.FAVORITE}`)
+    .then(({ data }) => {
+      dispatch(fetchFavoriteMoviesSuccess(data.map(transformMovieData)));
+    })
+    .catch(() => dispatch(fetchFavoriteMoviesError()));
 };
 
 export const changeFavorite =

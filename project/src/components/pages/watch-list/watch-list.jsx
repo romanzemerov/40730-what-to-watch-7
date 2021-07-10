@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { PageFooter } from '../../page-footer/page-footer';
 import { MovieList } from '../../movie-list/movie-list';
 import PageHeader from '../../page-header/page-header';
-import { moviePropTypes } from '../../../types/movie.prop';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFavoriteMovies, getFavoriteMoviesStatus } from '../../../store/movies/selectors';
+import { loadingStates } from '../../../const';
+import { fetchFavoriteMovies } from '../../../store/movies/async-actions';
+import { LoadingScreen } from '../../loading-screen/loading-screen';
 
-function WatchList({ movies }) {
+function WatchList() {
+  const favoritesMovies = useSelector(getFavoriteMovies);
+  const favoriteMoviesStatus = useSelector(getFavoriteMoviesStatus);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFavoriteMovies());
+  }, []);
+
+  if (favoriteMoviesStatus !== loadingStates.SUCCEEDED) {
+    return <LoadingScreen />;
+  }
+
   return (
     <div>
       <div className="user-page">
@@ -13,7 +28,7 @@ function WatchList({ movies }) {
 
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <MovieList movies={movies} />
+          <MovieList movies={favoritesMovies} />
         </section>
 
         <PageFooter />
@@ -21,9 +36,5 @@ function WatchList({ movies }) {
     </div>
   );
 }
-
-WatchList.propTypes = {
-  movies: PropTypes.arrayOf(moviePropTypes).isRequired,
-};
 
 export { WatchList };
