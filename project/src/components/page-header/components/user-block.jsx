@@ -21,7 +21,12 @@ function UserBlock({ authStatus, user }) {
             </div>
           </li>
           <li className="user-block__item">
-            <Link to={AppRoutes.MAIN} href className="user-block__link">
+            <Link to={AppRoutes.WATCH_LIST} className="user-block__link">
+              My list
+            </Link>
+          </li>
+          <li className="user-block__item">
+            <Link to={AppRoutes.MAIN} className="user-block__link" onClick={logoutHandler}>
               Sign out
             </Link>
           </li>
