@@ -1,7 +1,15 @@
-import { changeAuthStatus, loginError, loginRequest, loginSuccess, updateUser } from './actions';
-import { APIRoute, AuthorizationStatus } from '../../const';
+import {
+  changeAuthState,
+  checkAuthStateRequest,
+  checkAuthStateSuccess,
+  loginError,
+  loginRequest,
+  loginSuccess,
   logoutRequest,
   logoutSuccess,
+  updateUser
+} from './actions';
+import { APIRoute, AuthorizationStates } from '../../const';
 import { transformUserData } from '../../services/api';
 
 export const login =
@@ -15,7 +23,7 @@ export const login =
           localStorage.setItem('user', JSON.stringify(transformedData));
 
           dispatch(loginSuccess(transformedData));
-          dispatch(changeAuthStatus(AuthorizationStatus.AUTH));
+          dispatch(changeAuthState(AuthorizationStates.AUTH));
         })
         .catch((e) => {
           const { error } = e.response.data;
@@ -35,11 +43,16 @@ export const logout = () => (dispatch, _, api) => {
     })
     .catch(() => {});
 };
+
+export const checkAuthState = () => (dispatch, _, api) => {
+  dispatch(checkAuthStateRequest());
   api
     .get(APIRoute.LOGIN)
     .then(() => {
-      dispatch(changeAuthStatus(AuthorizationStatus.AUTH));
+      dispatch(checkAuthStateSuccess(AuthorizationStates.AUTH));
       dispatch(updateUser(JSON.parse(localStorage.getItem('user'))));
     })
-    .catch(() => {});
+    .catch(() => {
+      dispatch(checkAuthStateSuccess(AuthorizationStates.NO_AUTH));
+    });
 };

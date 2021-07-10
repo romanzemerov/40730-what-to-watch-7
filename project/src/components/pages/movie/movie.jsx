@@ -97,7 +97,7 @@ function Movie() {
                   </svg>
                   <span>My list</span>
                 </button>
-                {authStatus === AuthorizationStatus.AUTH && (
+                {authStatus === AuthorizationStates.AUTH && (
                   <Link to={`${pathname}/review`} className="btn film-card__button">
                     Add review
                   </Link>

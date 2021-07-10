@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { AppRoutes, AuthorizationStatus } from '../../../const';
+import { AppRoutes, AuthorizationStates } from '../../../const';
 import PropTypes from 'prop-types';
 import { userPropTypes } from '../../../types/user.prop';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../../store/auth/async-actions';
 
-function UserBlock({ authStatus, user }) {
+function UserBlock({ authState, user }) {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
 
@@ -17,9 +17,10 @@ function UserBlock({ authStatus, user }) {
   const logoutHandler = () => {
     dispatch(logout());
   };
+
   return (
     <ul className="user-block">
-      {authStatus === AuthorizationStatus.AUTH ? (
+      {authState === AuthorizationStates.AUTH ? (
         <>
           <li className="user-block__item">
             <div className="user-block__avatar">
@@ -49,7 +50,7 @@ function UserBlock({ authStatus, user }) {
 }
 
 UserBlock.propTypes = {
-  authStatus: PropTypes.string.isRequired,
+  authState: PropTypes.string.isRequired,
   user: userPropTypes,
 };
 
