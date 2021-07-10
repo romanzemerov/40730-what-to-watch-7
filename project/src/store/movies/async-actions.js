@@ -50,3 +50,15 @@ export const fetchSimilarFilms = (id) => (dispatch, _, api) => {
     })
     .catch(() => dispatch(getSimilarMoviesError()));
 };
+
+export const changeFavorite =
+  ({ id, status }) =>
+    (dispatch, _, api) => {
+      dispatch(changeFavoriteStatusRequest());
+      api
+        .post(`${APIRoute.FAVORITE}/${id}/${status}`)
+        .then(({ data }) => {
+          dispatch(changeFavoriteStatusSuccess(transformMovieData(data).isFavorite));
+        })
+        .catch(() => dispatch(changeFavoriteStatusError()));
+    };

@@ -57,5 +57,14 @@ export const moviesReducer = createReducer(initialState, (builder) => {
     })
     .addCase(getSimilarMoviesError, (state) => {
       state.similarMoviesStatus = loadingStates.FAILED;
+    .addCase(changeFavoriteStatusRequest, (state) => {
+      state.changeFavoriteStatus = loadingStates.LOADING;
+    })
+    .addCase(changeFavoriteStatusSuccess, (state, { payload }) => {
+      state.changeFavoriteStatus = loadingStates.SUCCEEDED;
+      state.currentMovie.isFavorite = payload;
+    })
+    .addCase(changeFavoriteStatusError, (state) => {
+      state.changeFavoriteStatus = loadingStates.FAILED;
     });
 });

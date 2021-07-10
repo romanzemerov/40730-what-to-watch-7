@@ -18,6 +18,8 @@ export const APIRoute = {
   LOGIN: '/login',
   SIMILAR: '/similar',
   COMMENTS: '/comments',
+  PROMO: '/promo',
+  FAVORITE: '/favorite',
 };
 
 export const loadingStates = {

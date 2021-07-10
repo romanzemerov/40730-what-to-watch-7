@@ -30,3 +30,8 @@ export const getSimilarMoviesStatus = createSelector(
   (state) => state.movies.similarMoviesStatus,
   (similarMoviesStatus) => similarMoviesStatus,
 );
+
+export const getChangeFavoriteStatus = createSelector(
+  (state) => state.movies.changeFavoriteStatus,
+  (changeFavoriteStatus) => changeFavoriteStatus,
+);
