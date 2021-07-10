@@ -3,14 +3,20 @@ import { Link, useLocation } from 'react-router-dom';
 import { AppRoutes, AuthorizationStatus } from '../../../const';
 import PropTypes from 'prop-types';
 import { userPropTypes } from '../../../types/user.prop';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../../store/auth/async-actions';
 
 function UserBlock({ authStatus, user }) {
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
 
   if (pathname === AppRoutes.SIGN_IN) {
     return null;
   }
 
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
   return (
     <ul className="user-block">
       {authStatus === AuthorizationStatus.AUTH ? (

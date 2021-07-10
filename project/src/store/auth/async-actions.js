@@ -1,5 +1,7 @@
 import { changeAuthStatus, loginError, loginRequest, loginSuccess, updateUser } from './actions';
 import { APIRoute, AuthorizationStatus } from '../../const';
+  logoutRequest,
+  logoutSuccess,
 import { transformUserData } from '../../services/api';
 
 export const login =
@@ -22,7 +24,17 @@ export const login =
         });
     };
 
-export const fetchAuthorizationStatus = () => (dispatch, _, api) => {
+export const logout = () => (dispatch, _, api) => {
+  dispatch(logoutRequest());
+  api
+    .delete(APIRoute.LOGOUT)
+    .then(() => {
+      localStorage.removeItem('user');
+      dispatch(changeAuthState(AuthorizationStates.NO_AUTH));
+      dispatch(logoutSuccess());
+    })
+    .catch(() => {});
+};
   api
     .get(APIRoute.LOGIN)
     .then(() => {

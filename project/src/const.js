@@ -16,6 +16,7 @@ export const AppRoutes = {
 export const APIRoute = {
   MOVIES: '/films',
   LOGIN: '/login',
+  LOGOUT: '/logout',
   SIMILAR: '/similar',
   COMMENTS: '/comments',
   PROMO: '/promo',
