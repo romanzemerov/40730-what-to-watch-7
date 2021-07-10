@@ -18,6 +18,7 @@ export const store = configureStore({
     auth: authReducer,
     filters: filtersReducer,
     comments: commentsReducer,
+    promoMovie: promoMovieReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

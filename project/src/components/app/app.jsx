@@ -17,9 +17,14 @@ import { connect } from 'react-redux';
 import PrivateRoute from '../private-route/private-route';
 import { getMovies, getMoviesStatus } from '../../store/movies/selectors';
 import browserHistory from '../../browser-history';
+import { getPromoMovieStatus } from '../../store/promoMovie/selectors';
 
-function App({ movies, moviesStatus }) {
-  if (moviesStatus === loadingStates.LOADING) {
+function App({ movies, moviesStatus, authStatus, promoMovieStatus }) {
+  if (
+    moviesStatus !== loadingStates.SUCCEEDED &&
+    authStatus !== loadingStates.SUCCEEDED &&
+    promoMovieStatus !== loadingStates.SUCCEEDED
+  ) {
     return <LoadingScreen />;
   }
 
@@ -58,11 +63,13 @@ function App({ movies, moviesStatus }) {
 const mapStateToProps = (state) => ({
   movies: getMovies(state),
   moviesStatus: getMoviesStatus(state),
+  promoMovieStatus: getPromoMovieStatus(state),
 });
 
 App.propTypes = {
   movies: PropTypes.arrayOf(moviePropTypes).isRequired,
   moviesStatus: PropTypes.string.isRequired,
+  promoMovieStatus: PropTypes.string.isRequired,
 };
 
 export { App };
