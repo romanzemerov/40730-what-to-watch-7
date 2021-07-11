@@ -15,7 +15,7 @@ function WatchList() {
 
   useEffect(() => {
     dispatch(fetchFavoriteMovies());
-  }, []);
+  }, [dispatch]);
 
   if (favoriteMoviesStatus !== loadingStates.SUCCEEDED) {
     return <LoadingScreen />;
