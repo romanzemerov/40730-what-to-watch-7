@@ -26,6 +26,10 @@ function PromoMovie() {
     dispatch(changeFavorite({ id: movie.id, status: Number(!movie.isFavorite) }));
   };
 
+  const playButtonClickHandler = () => {
+    history.push(`/player/${movie.id}`);
+  };
+
   return (
     <section className="film-card">
       <div className="film-card__bg">
@@ -50,7 +54,11 @@ function PromoMovie() {
             </p>
 
             <div className="film-card__buttons">
-              <button className="btn btn--play film-card__button" type="button">
+              <button
+                className="btn btn--play film-card__button"
+                type="button"
+                onClick={playButtonClickHandler}
+              >
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
