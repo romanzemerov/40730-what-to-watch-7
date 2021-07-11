@@ -11,14 +11,12 @@ import { Player } from '../pages/player/player';
 import { NotFound } from '../pages/not-found/not-found';
 import { moviePropTypes } from '../../types/movie.prop';
 import { SvgSprite } from '../svg-sprite/svg-sprite';
-import { RouteWithCurrentMovie } from '../route-with-current-movie/route-with-current-movie';
 import { LoadingScreen } from '../loading-screen/loading-screen';
 import { connect } from 'react-redux';
 import PrivateRoute from '../private-route/private-route';
 import { getMovies, getMoviesStatus } from '../../store/movies/selectors';
 import browserHistory from '../../browser-history';
 import { getAuthStatus } from '../../store/auth/selectors';
-import { fetchFavoriteMovies } from '../../store/movies/async-actions';
 import { getPromoMovieStatus } from '../../store/promoMovie/selectors';
 
 function App({ movies, moviesStatus, authStatus, promoMovieStatus }) {
@@ -48,7 +46,9 @@ function App({ movies, moviesStatus, authStatus, promoMovieStatus }) {
           <Route path={AppRoutes.ADD_REVIEW} movies={movies} component={AddReview} exact>
             <AddReview />
           </Route>
-          <RouteWithCurrentMovie path={AppRoutes.PLAYER} movies={movies} component={Player} />
+          <Route path={AppRoutes.PLAYER}>
+            <Player />
+          </Route>
           <Route>
             <NotFound />
           </Route>
