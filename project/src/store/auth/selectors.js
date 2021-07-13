@@ -10,6 +10,11 @@ export const getLoginError = createSelector(
   (loginError) => loginError,
 );
 
+export const getAuthState = createSelector(
+  (state) => state.auth.authState,
+  (authState) => authState,
+);
+
 export const getAuthStatus = createSelector(
   (state) => state.auth.authStatus,
   (authStatus) => authStatus,

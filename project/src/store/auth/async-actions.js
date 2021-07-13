@@ -1,5 +1,16 @@
-import { changeAuthStatus, loginError, loginRequest, loginSuccess, updateUser } from './actions';
-import { APIRoute, AuthorizationStatus } from '../../const';
+import {
+  changeAuthState,
+  checkAuthStateError,
+  checkAuthStateRequest,
+  checkAuthStateSuccess,
+  loginError,
+  loginRequest,
+  loginSuccess,
+  logoutError,
+  logoutRequest,
+  logoutSuccess
+} from './actions';
+import { APIRoute, AuthStates } from '../../const';
 import { transformUserData } from '../../services/api';
 
 export const login =
@@ -10,10 +21,10 @@ export const login =
         .post(APIRoute.LOGIN, { email, password })
         .then(({ data }) => {
           const transformedData = transformUserData(data);
-          localStorage.setItem('user', JSON.stringify(transformedData));
+          localStorage.setItem('token', transformedData.token);
 
           dispatch(loginSuccess(transformedData));
-          dispatch(changeAuthStatus(AuthorizationStatus.AUTH));
+          dispatch(changeAuthState(AuthStates.AUTH));
         })
         .catch((e) => {
           const { error } = e.response.data;
@@ -22,12 +33,29 @@ export const login =
         });
     };
 
-export const fetchAuthorizationStatus = () => (dispatch, _, api) => {
+export const logout = () => (dispatch, _, api) => {
+  dispatch(logoutRequest());
+  api
+    .delete(APIRoute.LOGOUT)
+    .then(() => {
+      localStorage.removeItem('token');
+      dispatch(changeAuthState(AuthStates.NO_AUTH));
+      dispatch(logoutSuccess());
+    })
+    .catch(() => {
+      dispatch(logoutError());
+    });
+};
+
+export const checkAuthState = () => (dispatch, _, api) => {
+  dispatch(checkAuthStateRequest());
   api
     .get(APIRoute.LOGIN)
-    .then(() => {
-      dispatch(changeAuthStatus(AuthorizationStatus.AUTH));
-      dispatch(updateUser(JSON.parse(localStorage.getItem('user'))));
+    .then(({ data }) => {
+      dispatch(changeAuthState(AuthStates.AUTH));
+      dispatch(checkAuthStateSuccess(transformUserData(data)));
     })
-    .catch(() => {});
+    .catch(() => {
+      dispatch(checkAuthStateError());
+    });
 };

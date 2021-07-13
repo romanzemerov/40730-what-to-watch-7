@@ -1,12 +1,25 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { AuthorizationStatus, loadingStates } from '../../const';
-import { changeAuthStatus, loginError, loginRequest, loginSuccess, updateUser } from './actions';
+import { AuthStates, loadingStates } from '../../const';
+import {
+  changeAuthState,
+  checkAuthStateError,
+  checkAuthStateRequest,
+  checkAuthStateSuccess,
+  loginError,
+  loginRequest,
+  loginSuccess,
+  logoutError,
+  logoutRequest,
+  logoutSuccess
+} from './actions';
 
 const initialState = {
   user: {},
   loginStatus: loadingStates.IDLE,
   loginError: '',
-  authStatus: AuthorizationStatus.UNKNOWN,
+  logoutStatus: loadingStates.IDLE,
+  authState: AuthStates.UNKNOWN,
+  authStatus: loadingStates.IDLE,
 };
 
 export const authReducer = createReducer(initialState, (builder) => {
@@ -24,10 +37,30 @@ export const authReducer = createReducer(initialState, (builder) => {
       state.loginStatus = loadingStates.FAILED;
       state.loginError = payload;
     })
-    .addCase(changeAuthStatus, (state, { payload }) => {
-      state.authStatus = payload;
+
+    .addCase(logoutRequest, (state) => {
+      state.logoutStatus = loadingStates.LOADING;
     })
-    .addCase(updateUser, (state, { payload }) => {
+    .addCase(logoutSuccess, (state, { payload }) => {
+      state.logoutStatus = loadingStates.SUCCEEDED;
+      state.user = initialState.user;
+    })
+    .addCase(logoutError, (state, { payload }) => {
+      state.logoutStatus = loadingStates.FAILED;
+    })
+
+    .addCase(checkAuthStateRequest, (state) => {
+      state.authStatus = loadingStates.LOADING;
+    })
+    .addCase(checkAuthStateSuccess, (state, { payload }) => {
+      state.authStatus = loadingStates.SUCCEEDED;
       state.user = payload;
+    })
+    .addCase(checkAuthStateError, (state) => {
+      state.authStatus = loadingStates.FAILED;
+    })
+
+    .addCase(changeAuthState, (state, { payload }) => {
+      state.authState = payload;
     });
 });

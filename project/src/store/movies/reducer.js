@@ -1,6 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { loadingStates } from '../../const';
 import {
+  changeFavoriteStatusError,
+  changeFavoriteStatusRequest,
+  changeFavoriteStatusSuccess,
+  fetchFavoriteMoviesError,
+  fetchFavoriteMoviesRequest,
+  fetchFavoriteMoviesSuccess,
   getMovieError,
   getMovieRequest,
   getMoviesError,
@@ -15,10 +21,13 @@ import {
 const initialState = {
   currentMovie: {},
   currentMovieStatus: loadingStates.IDLE,
+  changeFavoriteStatus: loadingStates.IDLE,
   movies: [],
   moviesStatus: loadingStates.IDLE,
   similarMovies: [],
   similarMoviesStatus: loadingStates.IDLE,
+  favoriteMovies: [],
+  favoriteMoviesStatus: loadingStates.IDLE,
 };
 
 export const moviesReducer = createReducer(initialState, (builder) => {
@@ -57,5 +66,28 @@ export const moviesReducer = createReducer(initialState, (builder) => {
     })
     .addCase(getSimilarMoviesError, (state) => {
       state.similarMoviesStatus = loadingStates.FAILED;
+    })
+
+    .addCase(fetchFavoriteMoviesRequest, (state) => {
+      state.favoriteMoviesStatus = loadingStates.LOADING;
+      state.favoriteMovies = initialState.favoriteMovies;
+    })
+    .addCase(fetchFavoriteMoviesSuccess, (state, { payload }) => {
+      state.favoriteMoviesStatus = loadingStates.SUCCEEDED;
+      state.favoriteMovies = payload;
+    })
+    .addCase(fetchFavoriteMoviesError, (state) => {
+      state.favoriteMoviesStatus = loadingStates.FAILED;
+    })
+
+    .addCase(changeFavoriteStatusRequest, (state) => {
+      state.changeFavoriteStatus = loadingStates.LOADING;
+    })
+    .addCase(changeFavoriteStatusSuccess, (state, { payload }) => {
+      state.changeFavoriteStatus = loadingStates.SUCCEEDED;
+      state.currentMovie.isFavorite = payload;
+    })
+    .addCase(changeFavoriteStatusError, (state) => {
+      state.changeFavoriteStatus = loadingStates.FAILED;
     });
 });

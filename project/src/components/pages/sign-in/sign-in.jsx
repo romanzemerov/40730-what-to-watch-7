@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { PageFooter } from '../../page-footer/page-footer';
 import PageHeader from '../../page-header/page-header';
 import { connect } from 'react-redux';
-import { AppRoutes, AuthorizationStatus, loadingStates } from '../../../const';
+import { AppRoutes, AuthStates, loadingStates } from '../../../const';
 import { Redirect } from 'react-router-dom';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
-import { getAuthStatus, getLoginError, getLoginStatus } from '../../../store/auth/selectors';
+import { getAuthState, getLoginError, getLoginStatus } from '../../../store/auth/selectors';
 import { login } from '../../../store/auth/async-actions';
 
 const formFields = [
@@ -40,7 +40,7 @@ const validate = (fields) =>
       : { ...field, error: field.validate.errorText },
   );
 
-function SignIn({ authStatus, doLogin, loginStatus, formError }) {
+function SignIn({ authState, doLogin, loginStatus, formError }) {
   const [formData, setFormData] = useState(formFields);
 
   const changeInputHandler = (e) => {
@@ -68,7 +68,7 @@ function SignIn({ authStatus, doLogin, loginStatus, formError }) {
     }
   };
 
-  if (authStatus === AuthorizationStatus.AUTH) {
+  if (authState === AuthStates.AUTH) {
     return <Redirect to={AppRoutes.MAIN} />;
   }
 
@@ -108,7 +108,7 @@ function SignIn({ authStatus, doLogin, loginStatus, formError }) {
               >
                 <input
                   className="sign-in__input"
-                  type="text"
+                  type={name === 'password' ? 'password' : 'text'}
                   placeholder={label}
                   name={name}
                   id={name}
@@ -141,7 +141,7 @@ function SignIn({ authStatus, doLogin, loginStatus, formError }) {
 const mapStateToProps = (state) => ({
   loginStatus: getLoginStatus(state),
   formError: getLoginError(state),
-  authStatus: getAuthStatus(state),
+  authState: getAuthState(state),
 });
 
 const mapDispatchToProps = {
@@ -149,7 +149,7 @@ const mapDispatchToProps = {
 };
 
 SignIn.propTypes = {
-  authStatus: PropTypes.string.isRequired,
+  authState: PropTypes.string.isRequired,
   loginStatus: PropTypes.string.isRequired,
   formError: PropTypes.string.isRequired,
   doLogin: PropTypes.func.isRequired,

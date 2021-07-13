@@ -1,30 +1,27 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { AppRoutes, AuthorizationStatus } from '../../const';
+import { AppRoutes, AuthStates } from '../../const';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { getAuthState } from '../../store/auth/selectors';
 
-function PrivateRoute({ render, path, exact, authorizationStatus }) {
+function PrivateRoute({ render, path, exact, authState }) {
   return (
     <Route
       path={path}
       exact={exact}
       render={(routeProps) =>
-        authorizationStatus === AuthorizationStatus.AUTH ? (
-          render(routeProps)
-        ) : (
-          <Redirect to={AppRoutes.SIGN_IN} />
-        )}
+        authState === AuthStates.AUTH ? render(routeProps) : <Redirect to={AppRoutes.SIGN_IN} />}
     />
   );
 }
 
 const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
+  authState: getAuthState(state),
 });
 
 PrivateRoute.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
+  authState: PropTypes.string.isRequired,
   exact: PropTypes.bool.isRequired,
   path: PropTypes.string.isRequired,
   render: PropTypes.func.isRequired,

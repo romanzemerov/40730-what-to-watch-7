@@ -16,8 +16,11 @@ export const AppRoutes = {
 export const APIRoute = {
   MOVIES: '/films',
   LOGIN: '/login',
+  LOGOUT: '/logout',
   SIMILAR: '/similar',
   COMMENTS: '/comments',
+  PROMO: '/promo',
+  FAVORITE: '/favorite',
 };
 
 export const loadingStates = {
@@ -27,7 +30,7 @@ export const loadingStates = {
   FAILED: 'FAILED',
 };
 
-export const AuthorizationStatus = {
+export const AuthStates = {
   AUTH: 'AUTH',
   NO_AUTH: 'NO_AUTH',
   UNKNOWN: 'UNKNOWN',

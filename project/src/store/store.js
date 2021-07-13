@@ -1,15 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createAPI } from '../services/api';
-import { AuthorizationStatus } from '../const';
+import { AuthStates } from '../const';
 import { authReducer } from './auth/reducer';
-import { changeAuthStatus } from './auth/actions';
+import { changeAuthState } from './auth/actions';
 import { moviesReducer } from './movies/reducer';
 import { filtersReducer } from './filters/reducer';
 import { redirect } from './middlewares/redirect';
 import { commentsReducer } from './comments/reducer';
+import { promoMovieReducer } from './promoMovie/reducer';
 
 const api = createAPI(() => {
-  store.dispatch(changeAuthStatus(AuthorizationStatus.NO_AUTH));
+  store.dispatch(changeAuthState(AuthStates.NO_AUTH));
 });
 
 export const store = configureStore({
@@ -18,6 +19,7 @@ export const store = configureStore({
     auth: authReducer,
     filters: filtersReducer,
     comments: commentsReducer,
+    promoMovie: promoMovieReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { UserBlock } from './components/user-block';
 import { userPropTypes } from '../../types/user.prop';
-import { getAuthStatus, getUser } from '../../store/auth/selectors';
+import { getAuthState, getUser } from '../../store/auth/selectors';
 
-function PageHeader({ title, breadcrumbs, authStatus, user }) {
+function PageHeader({ title, breadcrumbs, authState, user }) {
   return (
     <header className="page-header user-page__head">
       {/*TODO: Вынести logo в отдельный компонент*/}
@@ -48,19 +48,19 @@ function PageHeader({ title, breadcrumbs, authStatus, user }) {
 
       {title && <h1 className="page-title user-page__title">{title}</h1>}
 
-      <UserBlock authStatus={authStatus} user={user} />
+      <UserBlock authState={authState} user={user} />
     </header>
   );
 }
 
 const mapStateToProps = (state) => ({
-  authStatus: getAuthStatus(state),
+  authState: getAuthState(state),
   user: getUser(state),
 });
 
 PageHeader.propTypes = {
   title: PropTypes.string,
-  authStatus: PropTypes.string.isRequired,
+  authState: PropTypes.string.isRequired,
   user: userPropTypes,
   breadcrumbs: PropTypes.arrayOf(
     PropTypes.shape({

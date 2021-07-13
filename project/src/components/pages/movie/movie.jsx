@@ -6,15 +6,16 @@ import { MovieDescription } from '../../movie-description/movie-description';
 import { MovieList } from '../../movie-list/movie-list';
 import { LoadingScreen } from '../../loading-screen/loading-screen';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchMovie, fetchSimilarFilms } from '../../../store/movies/async-actions';
+import { changeFavorite, fetchMovie, fetchSimilarFilms } from '../../../store/movies/async-actions';
 import {
+  getChangeFavoriteStatus,
   getCurrentMovie,
   getCurrentMovieStatus,
   getSimilarMovies,
   getSimilarMoviesStatus
 } from '../../../store/movies/selectors';
-import { AuthorizationStatus, loadingStates } from '../../../const';
-import { getAuthStatus } from '../../../store/auth/selectors';
+import { AppRoutes, AuthStates, loadingStates } from '../../../const';
+import { getAuthState } from '../../../store/auth/selectors';
 import { fetchComments } from '../../../store/comments/async-actions';
 
 function Movie() {
@@ -25,11 +26,21 @@ function Movie() {
   const movieStatus = useSelector(getCurrentMovieStatus);
   const similarMovies = useSelector(getSimilarMovies);
   const similarMoviesStatus = useSelector(getSimilarMoviesStatus);
-  const authStatus = useSelector(getAuthStatus);
+  const changeFavoriteStatus = useSelector(getChangeFavoriteStatus);
+  const authStatus = useSelector(getAuthState);
   const dispatch = useDispatch();
 
   const playButtonClickHandler = () => {
     history.push(`/player/${id}`);
+  };
+
+  const addListClickHandler = () => {
+    if (authStatus !== AuthStates.AUTH) {
+      history.push(AppRoutes.SIGN_IN);
+      return;
+    }
+
+    dispatch(changeFavorite({ id: movie.id, status: Number(!movie.isFavorite) }));
   };
 
   useEffect(() => {
@@ -71,13 +82,22 @@ function Movie() {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width={19} height={20}>
-                    <use xlinkHref="#add" />
+                <button
+                  className="btn btn--list film-card__button"
+                  type="button"
+                  onClick={addListClickHandler}
+                  disabled={changeFavoriteStatus === loadingStates.LOADING}
+                >
+                  <svg viewBox="0 0 19 20" width="19" height="20">
+                    {movie.isFavorite && authStatus === AuthStates.AUTH ? (
+                      <use xlinkHref="#in-list"></use>
+                    ) : (
+                      <use xlinkHref="#add"></use>
+                    )}
                   </svg>
                   <span>My list</span>
                 </button>
-                {authStatus === AuthorizationStatus.AUTH && (
+                {authStatus === AuthStates.AUTH && (
                   <Link to={`${pathname}/review`} className="btn film-card__button">
                     Add review
                   </Link>

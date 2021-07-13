@@ -1,19 +1,26 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { AppRoutes, AuthorizationStatus } from '../../../const';
+import { AppRoutes, AuthStates } from '../../../const';
 import PropTypes from 'prop-types';
 import { userPropTypes } from '../../../types/user.prop';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../../store/auth/async-actions';
 
-function UserBlock({ authStatus, user }) {
+function UserBlock({ authState, user }) {
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
 
   if (pathname === AppRoutes.SIGN_IN) {
     return null;
   }
 
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
+
   return (
     <ul className="user-block">
-      {authStatus === AuthorizationStatus.AUTH ? (
+      {authState === AuthStates.AUTH ? (
         <>
           <li className="user-block__item">
             <div className="user-block__avatar">
@@ -21,7 +28,12 @@ function UserBlock({ authStatus, user }) {
             </div>
           </li>
           <li className="user-block__item">
-            <Link to={AppRoutes.MAIN} href className="user-block__link">
+            <Link to={AppRoutes.WATCH_LIST} className="user-block__link">
+              My list
+            </Link>
+          </li>
+          <li className="user-block__item">
+            <Link to={AppRoutes.MAIN} className="user-block__link" onClick={logoutHandler}>
               Sign out
             </Link>
           </li>
@@ -38,7 +50,7 @@ function UserBlock({ authStatus, user }) {
 }
 
 UserBlock.propTypes = {
-  authStatus: PropTypes.string.isRequired,
+  authState: PropTypes.string.isRequired,
   user: userPropTypes,
 };
 

@@ -20,3 +20,19 @@ export const getSimilarMoviesSuccess = createAction(
   }),
 );
 export const getSimilarMoviesError = createAction('movies/fetchSimilarMoviesError');
+
+export const fetchFavoriteMoviesRequest = createAction('movies/fetchFavoriteMoviesRequest');
+export const fetchFavoriteMoviesSuccess = createAction(
+  'movies/fetchFavoriteMoviesSuccess',
+  (movies) => ({ payload: movies }),
+);
+export const fetchFavoriteMoviesError = createAction('movies/fetchFavoriteMoviesError');
+
+export const changeFavoriteStatusRequest = createAction('movies/changeFavoriteStatusRequest');
+export const changeFavoriteStatusSuccess = createAction(
+  'movies/changeFavoriteStatusSuccess',
+  (status) => ({
+    payload: status,
+  }),
+);
+export const changeFavoriteStatusError = createAction('movies/changeFavoriteStatusError');
