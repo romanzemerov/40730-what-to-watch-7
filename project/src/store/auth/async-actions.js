@@ -10,7 +10,7 @@ import {
   logoutRequest,
   logoutSuccess
 } from './actions';
-import { APIRoute, AuthorizationStates } from '../../const';
+import { APIRoute, AuthStates } from '../../const';
 import { transformUserData } from '../../services/api';
 
 export const login =
@@ -24,7 +24,7 @@ export const login =
           localStorage.setItem('token', transformedData.token);
 
           dispatch(loginSuccess(transformedData));
-          dispatch(changeAuthState(AuthorizationStates.AUTH));
+          dispatch(changeAuthState(AuthStates.AUTH));
         })
         .catch((e) => {
           const { error } = e.response.data;
@@ -39,7 +39,7 @@ export const logout = () => (dispatch, _, api) => {
     .delete(APIRoute.LOGOUT)
     .then(() => {
       localStorage.removeItem('token');
-      dispatch(changeAuthState(AuthorizationStates.NO_AUTH));
+      dispatch(changeAuthState(AuthStates.NO_AUTH));
       dispatch(logoutSuccess());
     })
     .catch(() => {
@@ -52,7 +52,7 @@ export const checkAuthState = () => (dispatch, _, api) => {
   api
     .get(APIRoute.LOGIN)
     .then(({ data }) => {
-      dispatch(changeAuthState(AuthorizationStates.AUTH));
+      dispatch(changeAuthState(AuthStates.AUTH));
       dispatch(checkAuthStateSuccess(transformUserData(data)));
     })
     .catch(() => {

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createAPI } from '../services/api';
-import { AuthorizationStates } from '../const';
+import { AuthStates } from '../const';
 import { authReducer } from './auth/reducer';
 import { changeAuthState } from './auth/actions';
 import { moviesReducer } from './movies/reducer';
@@ -10,7 +10,7 @@ import { commentsReducer } from './comments/reducer';
 import { promoMovieReducer } from './promoMovie/reducer';
 
 const api = createAPI(() => {
-  store.dispatch(changeAuthState(AuthorizationStates.NO_AUTH));
+  store.dispatch(changeAuthState(AuthStates.NO_AUTH));
 });
 
 export const store = configureStore({

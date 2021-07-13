@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { AppRoutes, AuthorizationStates } from '../../../const';
+import { AppRoutes, AuthStates } from '../../../const';
 import PropTypes from 'prop-types';
 import { userPropTypes } from '../../../types/user.prop';
 import { useDispatch } from 'react-redux';
@@ -20,7 +20,7 @@ function UserBlock({ authState, user }) {
 
   return (
     <ul className="user-block">
-      {authState === AuthorizationStates.AUTH ? (
+      {authState === AuthStates.AUTH ? (
         <>
           <li className="user-block__item">
             <div className="user-block__avatar">

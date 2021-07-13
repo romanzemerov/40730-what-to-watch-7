@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { PageFooter } from '../../page-footer/page-footer';
 import PageHeader from '../../page-header/page-header';
 import { connect } from 'react-redux';
-import { AppRoutes, AuthorizationStates, loadingStates } from '../../../const';
+import { AppRoutes, AuthStates, loadingStates } from '../../../const';
 import { Redirect } from 'react-router-dom';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
@@ -68,7 +68,7 @@ function SignIn({ authState, doLogin, loginStatus, formError }) {
     }
   };
 
-  if (authState === AuthorizationStates.AUTH) {
+  if (authState === AuthStates.AUTH) {
     return <Redirect to={AppRoutes.MAIN} />;
   }
 

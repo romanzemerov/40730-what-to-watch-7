@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { AuthorizationStates, loadingStates } from '../../const';
+import { AuthStates, loadingStates } from '../../const';
 import {
   changeAuthState,
   checkAuthStateError,
@@ -18,7 +18,7 @@ const initialState = {
   loginStatus: loadingStates.IDLE,
   loginError: '',
   logoutStatus: loadingStates.IDLE,
-  authState: AuthorizationStates.UNKNOWN,
+  authState: AuthStates.UNKNOWN,
   authStatus: loadingStates.IDLE,
 };
 

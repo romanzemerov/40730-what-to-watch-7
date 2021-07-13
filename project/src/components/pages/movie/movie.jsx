@@ -14,7 +14,7 @@ import {
   getSimilarMovies,
   getSimilarMoviesStatus
 } from '../../../store/movies/selectors';
-import { AppRoutes, AuthorizationStates, loadingStates } from '../../../const';
+import { AppRoutes, AuthStates, loadingStates } from '../../../const';
 import { getAuthState } from '../../../store/auth/selectors';
 import { fetchComments } from '../../../store/comments/async-actions';
 
@@ -35,7 +35,7 @@ function Movie() {
   };
 
   const addListClickHandler = () => {
-    if (authStatus !== AuthorizationStates.AUTH) {
+    if (authStatus !== AuthStates.AUTH) {
       history.push(AppRoutes.SIGN_IN);
       return;
     }
@@ -89,7 +89,7 @@ function Movie() {
                   disabled={changeFavoriteStatus === loadingStates.LOADING}
                 >
                   <svg viewBox="0 0 19 20" width="19" height="20">
-                    {movie.isFavorite && authStatus === AuthorizationStates.AUTH ? (
+                    {movie.isFavorite && authStatus === AuthStates.AUTH ? (
                       <use xlinkHref="#in-list"></use>
                     ) : (
                       <use xlinkHref="#add"></use>
@@ -97,7 +97,7 @@ function Movie() {
                   </svg>
                   <span>My list</span>
                 </button>
-                {authStatus === AuthorizationStates.AUTH && (
+                {authStatus === AuthStates.AUTH && (
                   <Link to={`${pathname}/review`} className="btn film-card__button">
                     Add review
                   </Link>

@@ -1,6 +1,6 @@
 import React from 'react';
 import PageHeader from '../../../../../page-header/page-header';
-import { AppRoutes, AuthorizationStates, loadingStates } from '../../../../../../const';
+import { AppRoutes, AuthStates, loadingStates } from '../../../../../../const';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -18,7 +18,7 @@ function PromoMovie() {
   const dispatch = useDispatch();
 
   const addListClickHandler = () => {
-    if (authStatus !== AuthorizationStates.AUTH) {
+    if (authStatus !== AuthStates.AUTH) {
       history.push(AppRoutes.SIGN_IN);
       return;
     }
@@ -71,7 +71,7 @@ function PromoMovie() {
                 disabled={changeFavoriteStatus === loadingStates.LOADING}
               >
                 <svg viewBox="0 0 19 20" width="19" height="20">
-                  {movie.isFavorite && authStatus === AuthorizationStates.AUTH ? (
+                  {movie.isFavorite && authStatus === AuthStates.AUTH ? (
                     <use xlinkHref="#in-list"></use>
                   ) : (
                     <use xlinkHref="#add"></use>

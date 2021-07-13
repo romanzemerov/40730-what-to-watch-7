@@ -30,7 +30,7 @@ export const loadingStates = {
   FAILED: 'FAILED',
 };
 
-export const AuthorizationStates = {
+export const AuthStates = {
   AUTH: 'AUTH',
   NO_AUTH: 'NO_AUTH',
   UNKNOWN: 'UNKNOWN',
