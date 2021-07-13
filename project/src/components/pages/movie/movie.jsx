@@ -89,7 +89,7 @@ function Movie() {
                   disabled={changeFavoriteStatus === loadingStates.LOADING}
                 >
                   <svg viewBox="0 0 19 20" width="19" height="20">
-                    {movie.isFavorite ? (
+                    {movie.isFavorite && authStatus === AuthorizationStates.AUTH ? (
                       <use xlinkHref="#in-list"></use>
                     ) : (
                       <use xlinkHref="#add"></use>
