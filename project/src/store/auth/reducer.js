@@ -2,6 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStates, loadingStates } from '../../const';
 import {
   changeAuthState,
+  checkAuthStateError,
   checkAuthStateRequest,
   checkAuthStateSuccess,
   loginError,
@@ -9,8 +10,7 @@ import {
   loginSuccess,
   logoutError,
   logoutRequest,
-  logoutSuccess,
-  updateUser
+  logoutSuccess
 } from './actions';
 
 const initialState = {
@@ -54,14 +54,13 @@ export const authReducer = createReducer(initialState, (builder) => {
     })
     .addCase(checkAuthStateSuccess, (state, { payload }) => {
       state.authStatus = loadingStates.SUCCEEDED;
-      state.authState = payload;
+      state.user = payload;
+    })
+    .addCase(checkAuthStateError, (state) => {
+      state.authStatus = loadingStates.FAILED;
     })
 
     .addCase(changeAuthState, (state, { payload }) => {
       state.authState = payload;
-    })
-
-    .addCase(updateUser, (state, { payload }) => {
-      state.user = payload;
     });
 });

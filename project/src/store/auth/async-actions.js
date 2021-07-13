@@ -1,13 +1,14 @@
 import {
   changeAuthState,
+  checkAuthStateError,
   checkAuthStateRequest,
   checkAuthStateSuccess,
   loginError,
   loginRequest,
   loginSuccess,
+  logoutError,
   logoutRequest,
-  logoutSuccess,
-  updateUser
+  logoutSuccess
 } from './actions';
 import { APIRoute, AuthorizationStates } from '../../const';
 import { transformUserData } from '../../services/api';
@@ -20,7 +21,7 @@ export const login =
         .post(APIRoute.LOGIN, { email, password })
         .then(({ data }) => {
           const transformedData = transformUserData(data);
-          localStorage.setItem('user', JSON.stringify(transformedData));
+          localStorage.setItem('token', transformedData.token);
 
           dispatch(loginSuccess(transformedData));
           dispatch(changeAuthState(AuthorizationStates.AUTH));
@@ -37,22 +38,24 @@ export const logout = () => (dispatch, _, api) => {
   api
     .delete(APIRoute.LOGOUT)
     .then(() => {
-      localStorage.removeItem('user');
+      localStorage.removeItem('token');
       dispatch(changeAuthState(AuthorizationStates.NO_AUTH));
       dispatch(logoutSuccess());
     })
-    .catch(() => {});
+    .catch(() => {
+      dispatch(logoutError());
+    });
 };
 
 export const checkAuthState = () => (dispatch, _, api) => {
   dispatch(checkAuthStateRequest());
   api
     .get(APIRoute.LOGIN)
-    .then(() => {
-      dispatch(checkAuthStateSuccess(AuthorizationStates.AUTH));
-      dispatch(updateUser(JSON.parse(localStorage.getItem('user'))));
+    .then(({ data }) => {
+      dispatch(changeAuthState(AuthorizationStates.AUTH));
+      dispatch(checkAuthStateSuccess(transformUserData(data)));
     })
     .catch(() => {
-      dispatch(checkAuthStateSuccess(AuthorizationStates.NO_AUTH));
+      dispatch(checkAuthStateError());
     });
 };

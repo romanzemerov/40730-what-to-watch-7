@@ -4,15 +4,10 @@ import { HttpCodes } from '../const';
 const URL = 'https://7.react.pages.academy/wtw';
 const REQUEST_TIMEOUT = 5000;
 
-const { token } = JSON.parse(localStorage.getItem('user')) ?? { token: '' };
-
 export const createAPI = (onUnauthorized) => {
   const api = axios.create({
     baseURL: URL,
     timeout: REQUEST_TIMEOUT,
-    headers: {
-      'X-Token': token,
-    },
   });
 
   const onSuccess = (response) => response;
@@ -27,6 +22,21 @@ export const createAPI = (onUnauthorized) => {
     throw err;
   };
 
+  api.interceptors.request.use(
+    (config) => {
+      const token = localStorage.getItem('token') ?? '';
+
+      if (token) {
+        config.headers['X-Token'] = token;
+      } else {
+        delete api.defaults.headers.common.token;
+      }
+
+      return config;
+    },
+
+    (error) => Promise.reject(error),
+  );
   api.interceptors.response.use(onSuccess, onFail);
 
   return api;
