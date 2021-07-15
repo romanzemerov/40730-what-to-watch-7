@@ -10,7 +10,7 @@ import {
   loginSuccess,
   logoutError,
   logoutRequest,
-  logoutSuccess,
+  logoutSuccess
 } from './actions';
 
 const initialState = {
