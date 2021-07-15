@@ -14,6 +14,4 @@ export const checkAuthStateSuccess = createAction('auth/checkAuthStateSuccess', 
 }));
 export const checkAuthStateError = createAction('auth/checkAuthStateError');
 
-export const changeAuthState = createAction('auth/changeAuthState', (state) => ({
-  payload: state,
-}));
+export const resetUserData = createAction('auth/resetUserData');
