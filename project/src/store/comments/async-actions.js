@@ -11,7 +11,7 @@ import { transformCommentData } from '../../services/api';
 
 export const fetchComments = (id) => (dispatch, _, api) => {
   dispatch(getCommentsRequest());
-  api
+  return api
     .get(`${APIRoute.COMMENTS}/${id}`)
     .then(({ data }) => {
       dispatch(getCommentsSuccess(data.map(transformCommentData)));
@@ -21,7 +21,7 @@ export const fetchComments = (id) => (dispatch, _, api) => {
 
 export const postComments = (id, body) => (dispatch, _, api) => {
   dispatch(postCommentRequest());
-  api
+  return api
     .post(`${APIRoute.COMMENTS}/${id}`, body)
     .then(({ data }) => {
       dispatch(postCommentSuccess(data.map(transformCommentData)));

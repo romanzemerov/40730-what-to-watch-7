@@ -1,7 +1,6 @@
 import {
   changeFavoriteStatusError,
   changeFavoriteStatusRequest,
-  changeFavoriteStatusSuccess,
   fetchFavoriteMoviesError,
   fetchFavoriteMoviesRequest,
   fetchFavoriteMoviesSuccess,
@@ -15,24 +14,23 @@ import {
   getSimilarMoviesRequest,
   getSimilarMoviesSuccess
 } from './actions';
-import { APIRoute, AppRoutes, HttpCodes, loadingStates } from '../../const';
+import { APIRoute, AppRoutes, HttpCodes } from '../../const';
 import { transformMovieData } from '../../services/api';
 import { redirectToRoute } from '../middlewares/redirect';
-import { getFavoriteMoviesStatus } from './selectors';
 
 export const fetchMovies = () => (dispatch, _, api) => {
   dispatch(getMoviesRequest());
-  api
+  return api
     .get(APIRoute.MOVIES)
     .then(({ data }) => {
       dispatch(getMoviesSuccess(data.map(transformMovieData)));
     })
-    .catch((e) => dispatch(getMoviesError(e)));
+    .catch(() => dispatch(getMoviesError()));
 };
 
 export const fetchMovie = (id) => (dispatch, _, api) => {
   dispatch(getMovieRequest());
-  api
+  return api
     .get(`${APIRoute.MOVIES}/${id}`)
     .then(({ data }) => {
       dispatch(getMovieSuccess(transformMovieData(data)));
@@ -50,7 +48,7 @@ export const fetchMovie = (id) => (dispatch, _, api) => {
 
 export const fetchSimilarFilms = (id) => (dispatch, _, api) => {
   dispatch(getSimilarMoviesRequest());
-  api
+  return api
     .get(`${APIRoute.MOVIES}/${id}${APIRoute.SIMILAR}`)
     .then(({ data }) => {
       dispatch(getSimilarMoviesSuccess(data.map(transformMovieData)));
@@ -59,13 +57,9 @@ export const fetchSimilarFilms = (id) => (dispatch, _, api) => {
 };
 
 export const fetchFavoriteMovies = () => (dispatch, getState, api) => {
-  if (getFavoriteMoviesStatus(getState()) === loadingStates.LOADING) {
-    return;
-  }
-
   dispatch(fetchFavoriteMoviesRequest());
-  api
-    .get(`${APIRoute.FAVORITE}`)
+  return api
+    .get(APIRoute.FAVORITE)
     .then(({ data }) => {
       dispatch(fetchFavoriteMoviesSuccess(data.map(transformMovieData)));
     })
@@ -76,10 +70,10 @@ export const changeFavorite =
   ({ id, status }) =>
     (dispatch, _, api) => {
       dispatch(changeFavoriteStatusRequest());
-      api
+      return api
         .post(`${APIRoute.FAVORITE}/${id}/${status}`)
         .then(({ data }) => {
-          dispatch(changeFavoriteStatusSuccess(transformMovieData(data).isFavorite));
+          dispatch(changeFavoriteStatusRequest(transformMovieData(data).isFavorite));
         })
         .catch(() => dispatch(changeFavoriteStatusError()));
     };

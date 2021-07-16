@@ -11,8 +11,8 @@ import {
 
 export const fetchPromoMovie = () => (dispatch, _, api) => {
   dispatch(fetchMovieRequest());
-  api
-    .get(`${APIRoute.PROMO}`)
+  return api
+    .get(APIRoute.PROMO)
     .then(({ data }) => {
       dispatch(fetchMovieSuccess(transformMovieData(data)));
     })
@@ -23,7 +23,7 @@ export const changeFavorite =
   ({ id, status }) =>
     (dispatch, _, api) => {
       dispatch(changeFavoriteStatusRequest());
-      api
+      return api
         .post(`${APIRoute.FAVORITE}/${id}/${status}`)
         .then(({ data }) => {
           dispatch(changeFavoriteStatusSuccess(transformMovieData(data).isFavorite));

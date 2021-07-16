@@ -16,7 +16,7 @@ export const login =
   ({ email, password }) =>
     (dispatch, _, api) => {
       dispatch(loginRequest());
-      api
+      return api
         .post(APIRoute.LOGIN, { email, password })
         .then(({ data }) => {
           const transformedData = transformUserData(data);
@@ -33,7 +33,7 @@ export const login =
 
 export const logout = () => (dispatch, _, api) => {
   dispatch(logoutRequest());
-  api
+  return api
     .delete(APIRoute.LOGOUT)
     .then(() => {
       localStorage.removeItem('token');
@@ -46,7 +46,7 @@ export const logout = () => (dispatch, _, api) => {
 
 export const checkAuthState = () => (dispatch, _, api) => {
   dispatch(checkAuthStateRequest());
-  api
+  return api
     .get(APIRoute.LOGIN)
     .then(({ data }) => {
       dispatch(checkAuthStateSuccess(transformUserData(data)));
