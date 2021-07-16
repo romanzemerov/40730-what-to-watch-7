@@ -21,8 +21,8 @@ import { getPromoMovieStatus } from '../../store/promoMovie/selectors';
 
 function App({ movies, moviesStatus, authStatus, promoMovieStatus }) {
   if (
-    moviesStatus !== loadingStates.SUCCEEDED &&
-    authStatus !== loadingStates.SUCCEEDED &&
+    authStatus !== loadingStates.SUCCEEDED ||
+    moviesStatus !== loadingStates.SUCCEEDED ||
     promoMovieStatus !== loadingStates.SUCCEEDED
   ) {
     return <LoadingScreen />;
