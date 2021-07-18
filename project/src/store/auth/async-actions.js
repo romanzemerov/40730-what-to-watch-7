@@ -1,5 +1,4 @@
 import {
-  changeAuthState,
   checkAuthStateError,
   checkAuthStateRequest,
   checkAuthStateSuccess,
@@ -10,21 +9,20 @@ import {
   logoutRequest,
   logoutSuccess
 } from './actions';
-import { APIRoute, AuthStates } from '../../const';
+import { APIRoute } from '../../const';
 import { transformUserData } from '../../services/api';
 
 export const login =
   ({ email, password }) =>
     (dispatch, _, api) => {
       dispatch(loginRequest());
-      api
+      return api
         .post(APIRoute.LOGIN, { email, password })
         .then(({ data }) => {
           const transformedData = transformUserData(data);
           localStorage.setItem('token', transformedData.token);
 
           dispatch(loginSuccess(transformedData));
-          dispatch(changeAuthState(AuthStates.AUTH));
         })
         .catch((e) => {
           const { error } = e.response.data;
@@ -35,11 +33,10 @@ export const login =
 
 export const logout = () => (dispatch, _, api) => {
   dispatch(logoutRequest());
-  api
+  return api
     .delete(APIRoute.LOGOUT)
     .then(() => {
       localStorage.removeItem('token');
-      dispatch(changeAuthState(AuthStates.NO_AUTH));
       dispatch(logoutSuccess());
     })
     .catch(() => {
@@ -49,13 +46,13 @@ export const logout = () => (dispatch, _, api) => {
 
 export const checkAuthState = () => (dispatch, _, api) => {
   dispatch(checkAuthStateRequest());
-  api
+  return api
     .get(APIRoute.LOGIN)
     .then(({ data }) => {
-      dispatch(changeAuthState(AuthStates.AUTH));
       dispatch(checkAuthStateSuccess(transformUserData(data)));
     })
     .catch(() => {
+      localStorage.removeItem('token');
       dispatch(checkAuthStateError());
     });
 };
