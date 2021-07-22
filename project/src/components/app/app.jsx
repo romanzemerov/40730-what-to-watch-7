@@ -2,7 +2,7 @@ import React from 'react';
 import Main from '../pages/main/main';
 import PropTypes from 'prop-types';
 import { Router, Switch, Route } from 'react-router-dom';
-import { AppRoutes, loadingStates } from '../../const';
+import { AppRoutes } from '../../const';
 import SignIn from '../pages/sign-in/sign-in';
 import { WatchList } from '../pages/watch-list/watch-list';
 import { Movie } from '../pages/movie/movie';
@@ -18,12 +18,13 @@ import { getMovies, getMoviesStatus } from '../../store/movies/selectors';
 import browserHistory from '../../browser-history';
 import { getAuthStatus } from '../../store/auth/selectors';
 import { getPromoMovieStatus } from '../../store/promoMovie/selectors';
+import { isLoadingFinish } from '../../helpers';
 
 function App({ movies, moviesStatus, authStatus, promoMovieStatus }) {
   if (
-    authStatus !== loadingStates.SUCCEEDED ||
-    moviesStatus !== loadingStates.SUCCEEDED ||
-    promoMovieStatus !== loadingStates.SUCCEEDED
+    !isLoadingFinish(authStatus) &&
+    !isLoadingFinish(moviesStatus) &&
+    !isLoadingFinish(promoMovieStatus)
   ) {
     return <LoadingScreen />;
   }

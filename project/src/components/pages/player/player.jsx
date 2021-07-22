@@ -3,9 +3,9 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentMovie, getCurrentMovieStatus } from '../../../store/movies/selectors';
 import { fetchMovie } from '../../../store/movies/async-actions';
-import { LoadingStatus } from '../../../const';
 import { LoadingScreen } from '../../loading-screen/loading-screen';
 import { ticker } from '../../../utils';
+import { isLoadingFinish } from '../../../helpers';
 
 const formatTime = (minutes) => {
   const date = new Date(minutes * 1000);
@@ -82,7 +82,7 @@ function Player() {
     };
   }, [isPlaying]);
 
-  if (movieStatus !== LoadingStatus.SUCCEEDED) {
+  if (!isLoadingFinish(movieStatus)) {
     return <LoadingScreen />;
   }
 

@@ -1,3 +1,5 @@
+import { LoadingStatus } from './const';
+
 export const sliceIntoChunks = (arr, chunkSize) => {
   const res = [];
 
@@ -8,3 +10,5 @@ export const sliceIntoChunks = (arr, chunkSize) => {
 
   return res;
 };
+
+export const isLoadingFinish = (loadingStatus) => loadingStatus === LoadingStatus.SUCCEEDED || loadingStatus === LoadingStatus.FAILED;

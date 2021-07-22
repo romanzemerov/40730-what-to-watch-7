@@ -1,12 +1,13 @@
 import React from 'react';
 import { CommentForm } from '../../comment-form/comment-form';
-import PageHeader from '../../page-header/page-header';
+import { PageHeader } from '../../page-header/page-header';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentMovie, getCurrentMovieStatus } from '../../../store/movies/selectors';
 import { LoadingScreen } from '../../loading-screen/loading-screen';
 import { fetchMovie } from '../../../store/movies/async-actions';
 import { useParams } from 'react-router-dom';
 import { LoadingStatus } from '../../../const';
+import { isLoadingFinish } from '../../../helpers';
 
 function AddReview() {
   const { id } = useParams();
@@ -20,7 +21,7 @@ function AddReview() {
     return <LoadingScreen />;
   }
 
-  if (movieStatus === LoadingStatus.LOADING) {
+  if (!isLoadingFinish(movieStatus)) {
     return <LoadingScreen />;
   }
 

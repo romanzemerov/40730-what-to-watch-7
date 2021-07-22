@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { PageFooter } from '../../page-footer/page-footer';
 import { MovieList } from '../../movie-list/movie-list';
-import PageHeader from '../../page-header/page-header';
+import { PageHeader } from '../../page-header/page-header';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFavoriteMovies, getFavoriteMoviesStatus } from '../../../store/movies/selectors';
-import { LoadingStatus } from '../../../const';
 import { fetchFavoriteMovies } from '../../../store/movies/async-actions';
 import { LoadingScreen } from '../../loading-screen/loading-screen';
+import { isLoadingFinish } from '../../../helpers';
 
 function WatchList() {
   const favoritesMovies = useSelector(getFavoriteMovies);
@@ -17,7 +17,7 @@ function WatchList() {
     dispatch(fetchFavoriteMovies());
   }, [dispatch]);
 
-  if (favoriteMoviesStatus !== LoadingStatus.SUCCEEDED) {
+  if (!isLoadingFinish(favoriteMoviesStatus)) {
     return <LoadingScreen />;
   }
 

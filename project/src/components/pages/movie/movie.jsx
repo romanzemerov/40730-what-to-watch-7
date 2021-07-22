@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { PageFooter } from '../../page-footer/page-footer';
-import PageHeader from '../../page-header/page-header';
+import { PageHeader } from '../../page-header/page-header';
 import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import { MovieDescription } from '../../movie-description/movie-description';
 import { MovieList } from '../../movie-list/movie-list';
@@ -12,11 +12,12 @@ import {
   getCurrentMovie,
   getCurrentMovieStatus,
   getSimilarMovies,
-  getSimilarMoviesStatus,
+  getSimilarMoviesStatus
 } from '../../../store/movies/selectors';
 import { AppRoutes, AuthStates, LoadingStatus } from '../../../const';
 import { getAuthState } from '../../../store/auth/selectors';
 import { fetchComments } from '../../../store/comments/async-actions';
+import { isLoadingFinish } from '../../../helpers';
 
 function Movie() {
   const { id } = useParams();
@@ -49,7 +50,7 @@ function Movie() {
     dispatch(fetchComments(id));
   }, [id, dispatch]);
 
-  if (movieStatus !== LoadingStatus.SUCCEEDED) {
+  if (!isLoadingFinish(movieStatus)) {
     return <LoadingScreen />;
   }
 
