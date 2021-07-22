@@ -15,7 +15,7 @@ import {
   getMovieSuccess,
   getSimilarMoviesError,
   getSimilarMoviesRequest,
-  getSimilarMoviesSuccess,
+  getSimilarMoviesSuccess
 } from './actions';
 
 const initialState = {

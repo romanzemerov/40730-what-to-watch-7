@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AppRoutes, AuthStates } from '../../../const';
-import PropTypes from 'prop-types';
-import { userPropTypes } from '../../../types/user.prop';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../store/auth/async-actions';
+import { getAuthState, getUser } from '../../../store/auth/selectors';
 
-function UserBlock({ authState, user }) {
+function UserBlock() {
   const { pathname } = useLocation();
+  const authState = useSelector(getAuthState);
+  const user = useSelector(getUser);
   const dispatch = useDispatch();
 
   if (pathname === AppRoutes.SIGN_IN) {
@@ -48,10 +49,5 @@ function UserBlock({ authState, user }) {
     </ul>
   );
 }
-
-UserBlock.propTypes = {
-  authState: PropTypes.string.isRequired,
-  user: userPropTypes,
-};
 
 export { UserBlock };

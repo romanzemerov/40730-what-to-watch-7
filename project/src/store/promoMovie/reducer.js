@@ -6,7 +6,7 @@ import {
   changeFavoriteStatusSuccess,
   fetchMovieError,
   fetchMovieRequest,
-  fetchMovieSuccess,
+  fetchMovieSuccess
 } from './actions';
 
 const initialState = {

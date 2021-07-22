@@ -1,11 +1,11 @@
 import React from 'react';
-import PageHeader from '../../../../../page-header/page-header';
+import { PageHeader } from '../../../../../page-header/page-header';
 import { AppRoutes, AuthStates, LoadingStatus } from '../../../../../../const';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getChangeFavoriteStatus,
-  getPromoMovie,
+  getPromoMovie
 } from '../../../../../../store/promoMovie/selectors';
 import { getAuthState } from '../../../../../../store/auth/selectors';
 import { changeFavorite } from '../../../../../../store/promoMovie/async-actions';

@@ -6,7 +6,7 @@ import {
   getCommentsSuccess,
   postCommentError,
   postCommentRequest,
-  postCommentSuccess,
+  postCommentSuccess
 } from './actions';
 
 const initialState = {

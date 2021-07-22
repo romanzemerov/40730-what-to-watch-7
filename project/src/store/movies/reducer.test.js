@@ -14,7 +14,7 @@ import {
   getSimilarMoviesError,
   changeFavoriteStatusRequest,
   changeFavoriteStatusSuccess,
-  changeFavoriteStatusError,
+  changeFavoriteStatusError
 } from './actions';
 import { LoadingStatus } from '../../const';
 

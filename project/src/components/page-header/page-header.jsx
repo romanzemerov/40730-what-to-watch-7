@@ -2,16 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoutes } from '../../const';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { UserBlock } from './components/user-block';
-import { userPropTypes } from '../../types/user.prop';
-import { getAuthState, getUser } from '../../store/auth/selectors';
 
-function PageHeader({ title, breadcrumbs, authState, user }) {
+function PageHeader({ title, breadcrumbs }) {
   return (
     <header className="page-header user-page__head">
-      {/*TODO: Вынести logo в отдельный компонент*/}
-
       <div className="logo">
         <Link to={AppRoutes.MAIN} className="logo__link">
           <span className="logo__letter logo__letter--1">W</span>
@@ -19,8 +14,6 @@ function PageHeader({ title, breadcrumbs, authState, user }) {
           <span className="logo__letter logo__letter--3">W</span>
         </Link>
       </div>
-
-      {/*TODO: Вынести breadcrumbs в отдельный компонент*/}
 
       {breadcrumbs && (
         <nav className="breadcrumbs">
@@ -48,20 +41,13 @@ function PageHeader({ title, breadcrumbs, authState, user }) {
 
       {title && <h1 className="page-title user-page__title">{title}</h1>}
 
-      <UserBlock authState={authState} user={user} />
+      <UserBlock />
     </header>
   );
 }
 
-const mapStateToProps = (state) => ({
-  authState: getAuthState(state),
-  user: getUser(state),
-});
-
 PageHeader.propTypes = {
   title: PropTypes.string,
-  authState: PropTypes.string.isRequired,
-  user: userPropTypes,
   breadcrumbs: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
@@ -71,4 +57,3 @@ PageHeader.propTypes = {
 };
 
 export { PageHeader };
-export default connect(mapStateToProps)(PageHeader);

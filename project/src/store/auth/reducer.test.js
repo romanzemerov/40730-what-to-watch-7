@@ -9,7 +9,7 @@ import {
   loginSuccess,
   logoutError,
   logoutRequest,
-  logoutSuccess,
+  logoutSuccess
 } from './actions';
 import { AuthStates, LoadingStatus } from '../../const';
 

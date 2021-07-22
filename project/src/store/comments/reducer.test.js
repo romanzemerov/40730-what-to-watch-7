@@ -5,7 +5,7 @@ import {
   getCommentsError,
   postCommentRequest,
   postCommentSuccess,
-  postCommentError,
+  postCommentError
 } from './actions';
 import { LoadingStatus } from '../../const';
 

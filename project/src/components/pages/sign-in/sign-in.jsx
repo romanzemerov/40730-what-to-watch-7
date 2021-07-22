@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PageFooter } from '../../page-footer/page-footer';
-import PageHeader from '../../page-header/page-header';
+import { PageHeader } from '../../page-header/page-header';
 import { connect } from 'react-redux';
 import { AppRoutes, AuthStates, LoadingStatus } from '../../../const';
 import { Redirect } from 'react-router-dom';

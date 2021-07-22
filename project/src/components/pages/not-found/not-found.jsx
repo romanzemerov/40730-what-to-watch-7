@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoutes } from '../../../const';
 import { PageFooter } from '../../page-footer/page-footer';
-import PageHeader from '../../page-header/page-header';
+import { PageHeader } from '../../page-header/page-header';
 
 function NotFound() {
   return (

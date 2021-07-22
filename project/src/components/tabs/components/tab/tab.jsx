@@ -3,11 +3,14 @@ import cn from 'classnames';
 import PropTypes from 'prop-types';
 
 function Tab({ id, label, isActive, onClick }) {
+  const clickHandler = (e) => {
+    e.preventDefault();
+    onClick(id);
+  };
+
   return (
-    <li
-      className={cn('film-nav__item', { 'film-nav__item--active': isActive })}
-    >
-      <a href className="film-nav__link" onClick={() => onClick(id)}>
+    <li className={cn('film-nav__item', { 'film-nav__item--active': isActive })}>
+      <a href={`/${label}`} className="film-nav__link" onClick={clickHandler}>
         {label}
       </a>
     </li>

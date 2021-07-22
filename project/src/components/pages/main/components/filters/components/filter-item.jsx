@@ -3,7 +3,9 @@ import cn from 'classnames';
 import PropTypes from 'prop-types';
 
 function FilterItem({ label, isActive, onClick }) {
-  const clickHandler = () => {
+  const clickHandler = (e) => {
+    e.preventDefault();
+
     if (isActive) {
       return;
     }
@@ -17,7 +19,7 @@ function FilterItem({ label, isActive, onClick }) {
         'catalog__genres-item--active': isActive,
       })}
     >
-      <a href className="catalog__genres-link" onClick={clickHandler}>
+      <a href={`${label}`} className="catalog__genres-link" onClick={clickHandler}>
         {label}
       </a>
     </li>

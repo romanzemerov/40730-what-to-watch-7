@@ -5,7 +5,7 @@ import {
   changeFavoriteStatusError,
   fetchMovieRequest,
   fetchMovieSuccess,
-  fetchMovieError,
+  fetchMovieError
 } from './actions';
 import { LoadingStatus } from '../../const';
 
