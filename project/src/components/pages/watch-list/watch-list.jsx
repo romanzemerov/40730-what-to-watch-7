@@ -4,7 +4,7 @@ import { MovieList } from '../../movie-list/movie-list';
 import PageHeader from '../../page-header/page-header';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFavoriteMovies, getFavoriteMoviesStatus } from '../../../store/movies/selectors';
-import { loadingStates } from '../../../const';
+import { LoadingStatus } from '../../../const';
 import { fetchFavoriteMovies } from '../../../store/movies/async-actions';
 import { LoadingScreen } from '../../loading-screen/loading-screen';
 
@@ -17,7 +17,7 @@ function WatchList() {
     dispatch(fetchFavoriteMovies());
   }, [dispatch]);
 
-  if (favoriteMoviesStatus !== loadingStates.SUCCEEDED) {
+  if (favoriteMoviesStatus !== LoadingStatus.SUCCEEDED) {
     return <LoadingScreen />;
   }
 

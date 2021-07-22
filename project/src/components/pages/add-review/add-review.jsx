@@ -6,7 +6,7 @@ import { getCurrentMovie, getCurrentMovieStatus } from '../../../store/movies/se
 import { LoadingScreen } from '../../loading-screen/loading-screen';
 import { fetchMovie } from '../../../store/movies/async-actions';
 import { useParams } from 'react-router-dom';
-import { loadingStates } from '../../../const';
+import { LoadingStatus } from '../../../const';
 
 function AddReview() {
   const { id } = useParams();
@@ -14,13 +14,13 @@ function AddReview() {
   const movie = useSelector(getCurrentMovie);
   const dispatch = useDispatch();
 
-  if (movieStatus === loadingStates.IDLE) {
+  if (movieStatus === LoadingStatus.IDLE) {
     dispatch(fetchMovie(id));
 
     return <LoadingScreen />;
   }
 
-  if (movieStatus === loadingStates.LOADING) {
+  if (movieStatus === LoadingStatus.LOADING) {
     return <LoadingScreen />;
   }
 

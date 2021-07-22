@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { AuthStates, loadingStates } from '../../const';
+import { AuthStates, LoadingStatus } from '../../const';
 import {
   resetUserData,
   checkAuthStateError,
@@ -10,58 +10,58 @@ import {
   loginSuccess,
   logoutError,
   logoutRequest,
-  logoutSuccess
+  logoutSuccess,
 } from './actions';
 
 const initialState = {
   user: {},
-  loginStatus: loadingStates.IDLE,
+  loginStatus: LoadingStatus.IDLE,
   loginError: '',
-  logoutStatus: loadingStates.IDLE,
+  logoutStatus: LoadingStatus.IDLE,
   authState: AuthStates.UNKNOWN,
-  authStatus: loadingStates.IDLE,
+  authStatus: LoadingStatus.IDLE,
 };
 
 export const authReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(loginRequest, (state) => {
-      state.loginStatus = loadingStates.LOADING;
+      state.loginStatus = LoadingStatus.LOADING;
     })
     .addCase(loginSuccess, (state, { payload }) => {
-      state.loginStatus = loadingStates.SUCCEEDED;
+      state.loginStatus = LoadingStatus.SUCCEEDED;
       state.user = payload;
       state.loginError = initialState.loginError;
       state.authState = AuthStates.AUTH;
     })
     .addCase(loginError, (state, { payload }) => {
       state.user = initialState.user;
-      state.loginStatus = loadingStates.FAILED;
+      state.loginStatus = LoadingStatus.FAILED;
       state.loginError = payload;
       state.authState = AuthStates.NO_AUTH;
     })
 
     .addCase(logoutRequest, (state) => {
-      state.logoutStatus = loadingStates.LOADING;
+      state.logoutStatus = LoadingStatus.LOADING;
     })
     .addCase(logoutSuccess, (state) => {
-      state.logoutStatus = loadingStates.SUCCEEDED;
+      state.logoutStatus = LoadingStatus.SUCCEEDED;
       state.user = initialState.user;
       state.authState = AuthStates.NO_AUTH;
     })
     .addCase(logoutError, (state, { payload }) => {
-      state.logoutStatus = loadingStates.FAILED;
+      state.logoutStatus = LoadingStatus.FAILED;
     })
 
     .addCase(checkAuthStateRequest, (state) => {
-      state.authStatus = loadingStates.LOADING;
+      state.authStatus = LoadingStatus.LOADING;
     })
     .addCase(checkAuthStateSuccess, (state, { payload }) => {
-      state.authStatus = loadingStates.SUCCEEDED;
+      state.authStatus = LoadingStatus.SUCCEEDED;
       state.user = payload;
       state.authState = AuthStates.AUTH;
     })
     .addCase(checkAuthStateError, (state) => {
-      state.authStatus = loadingStates.FAILED;
+      state.authStatus = LoadingStatus.FAILED;
       state.authState = AuthStates.NO_AUTH;
     })
 

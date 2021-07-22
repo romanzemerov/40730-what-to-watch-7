@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Rating } from '../rating/rating';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadingStates } from '../../const';
+import { LoadingStatus } from '../../const';
 import { getPostCommentStatus } from '../../store/comments/selectors';
 import { postComments } from '../../store/comments/async-actions';
 import PropTypes from 'prop-types';
@@ -49,7 +49,7 @@ function CommentForm({ movieId }) {
             type="submit"
             disabled={
               comment.length < MIN_COMMENT_LENGTH ||
-              postCommentStatus === loadingStates.LOADING ||
+              postCommentStatus === LoadingStatus.LOADING ||
               rating === DEFAULT_RATING_VALUE
             }
           >

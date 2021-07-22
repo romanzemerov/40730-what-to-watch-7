@@ -1,42 +1,42 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { loadingStates } from '../../const';
+import { LoadingStatus } from '../../const';
 import {
   getCommentsError,
   getCommentsRequest,
   getCommentsSuccess,
   postCommentError,
   postCommentRequest,
-  postCommentSuccess
+  postCommentSuccess,
 } from './actions';
 
 const initialState = {
   comments: [],
-  commentsStatus: loadingStates.IDLE,
-  postCommentStatus: loadingStates.IDLE,
+  commentsStatus: LoadingStatus.IDLE,
+  postCommentStatus: LoadingStatus.IDLE,
 };
 
 export const commentsReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(getCommentsRequest, (state) => {
-      state.commentsStatus = loadingStates.LOADING;
+      state.commentsStatus = LoadingStatus.LOADING;
       state.comments = initialState.comments;
     })
     .addCase(getCommentsSuccess, (state, { payload }) => {
-      state.commentsStatus = loadingStates.SUCCEEDED;
+      state.commentsStatus = LoadingStatus.SUCCEEDED;
       state.comments = payload;
     })
     .addCase(getCommentsError, (state) => {
-      state.commentsStatus = loadingStates.FAILED;
+      state.commentsStatus = LoadingStatus.FAILED;
     })
 
     .addCase(postCommentRequest, (state) => {
-      state.postCommentStatus = loadingStates.LOADING;
+      state.postCommentStatus = LoadingStatus.LOADING;
     })
     .addCase(postCommentSuccess, (state, { payload }) => {
-      state.postCommentStatus = loadingStates.SUCCEEDED;
+      state.postCommentStatus = LoadingStatus.SUCCEEDED;
       state.comments = payload;
     })
     .addCase(postCommentError, (state) => {
-      state.postCommentStatus = loadingStates.FAILED;
+      state.postCommentStatus = LoadingStatus.FAILED;
     });
 });

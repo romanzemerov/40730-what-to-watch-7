@@ -23,7 +23,7 @@ export const APIRoute = {
   FAVORITE: '/favorite',
 };
 
-export const loadingStates = {
+export const LoadingStatus = {
   IDLE: 'IDLE',
   LOADING: 'LOADING',
   SUCCEEDED: 'SUCCEEDED',

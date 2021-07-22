@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentMovie, getCurrentMovieStatus } from '../../../store/movies/selectors';
 import { fetchMovie } from '../../../store/movies/async-actions';
-import { loadingStates } from '../../../const';
+import { LoadingStatus } from '../../../const';
 import { LoadingScreen } from '../../loading-screen/loading-screen';
 import { ticker } from '../../../utils';
 
@@ -82,7 +82,7 @@ function Player() {
     };
   }, [isPlaying]);
 
-  if (movieStatus !== loadingStates.SUCCEEDED) {
+  if (movieStatus !== LoadingStatus.SUCCEEDED) {
     return <LoadingScreen />;
   }
 

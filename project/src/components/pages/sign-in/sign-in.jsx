@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { PageFooter } from '../../page-footer/page-footer';
 import PageHeader from '../../page-header/page-header';
 import { connect } from 'react-redux';
-import { AppRoutes, AuthStates, loadingStates } from '../../../const';
+import { AppRoutes, AuthStates, LoadingStatus } from '../../../const';
 import { Redirect } from 'react-router-dom';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
@@ -125,7 +125,7 @@ function SignIn({ authState, doLogin, loginStatus, formError }) {
             <button
               className="sign-in__btn"
               type="submit"
-              disabled={loginStatus === loadingStates.LOADING}
+              disabled={loginStatus === LoadingStatus.LOADING}
             >
               Sign in
             </button>

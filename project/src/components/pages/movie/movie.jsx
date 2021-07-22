@@ -12,9 +12,9 @@ import {
   getCurrentMovie,
   getCurrentMovieStatus,
   getSimilarMovies,
-  getSimilarMoviesStatus
+  getSimilarMoviesStatus,
 } from '../../../store/movies/selectors';
-import { AppRoutes, AuthStates, loadingStates } from '../../../const';
+import { AppRoutes, AuthStates, LoadingStatus } from '../../../const';
 import { getAuthState } from '../../../store/auth/selectors';
 import { fetchComments } from '../../../store/comments/async-actions';
 
@@ -49,7 +49,7 @@ function Movie() {
     dispatch(fetchComments(id));
   }, [id, dispatch]);
 
-  if (movieStatus !== loadingStates.SUCCEEDED) {
+  if (movieStatus !== LoadingStatus.SUCCEEDED) {
     return <LoadingScreen />;
   }
 
@@ -86,7 +86,7 @@ function Movie() {
                   className="btn btn--list film-card__button"
                   type="button"
                   onClick={addListClickHandler}
-                  disabled={changeFavoriteStatus === loadingStates.LOADING}
+                  disabled={changeFavoriteStatus === LoadingStatus.LOADING}
                 >
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     {movie.isFavorite && authStatus === AuthStates.AUTH ? (
@@ -116,7 +116,7 @@ function Movie() {
         </div>
       </section>
       <div className="page-content">
-        {similarMoviesStatus === loadingStates.SUCCEEDED ? (
+        {similarMoviesStatus === LoadingStatus.SUCCEEDED ? (
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
             <MovieList movies={similarMovies} />

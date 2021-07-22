@@ -14,9 +14,9 @@ import {
   getSimilarMoviesError,
   changeFavoriteStatusRequest,
   changeFavoriteStatusSuccess,
-  changeFavoriteStatusError
+  changeFavoriteStatusError,
 } from './actions';
-import { loadingStates } from '../../const';
+import { LoadingStatus } from '../../const';
 
 const testMovies = [
   { id: 1, name: 'testName1' },
@@ -31,14 +31,14 @@ describe('Comments reducer', () => {
 
       expect(state).toEqual({
         currentMovie: {},
-        currentMovieStatus: loadingStates.IDLE,
-        changeFavoriteStatus: loadingStates.IDLE,
+        currentMovieStatus: LoadingStatus.IDLE,
+        changeFavoriteStatus: LoadingStatus.IDLE,
         movies: [],
-        moviesStatus: loadingStates.LOADING,
+        moviesStatus: LoadingStatus.LOADING,
         similarMovies: [],
-        similarMoviesStatus: loadingStates.IDLE,
+        similarMoviesStatus: LoadingStatus.IDLE,
         favoriteMovies: [],
-        favoriteMoviesStatus: loadingStates.IDLE,
+        favoriteMoviesStatus: LoadingStatus.IDLE,
       });
     });
 
@@ -47,14 +47,14 @@ describe('Comments reducer', () => {
 
       expect(state).toEqual({
         currentMovie: {},
-        currentMovieStatus: loadingStates.IDLE,
-        changeFavoriteStatus: loadingStates.IDLE,
+        currentMovieStatus: LoadingStatus.IDLE,
+        changeFavoriteStatus: LoadingStatus.IDLE,
         movies: testMovies,
-        moviesStatus: loadingStates.SUCCEEDED,
+        moviesStatus: LoadingStatus.SUCCEEDED,
         similarMovies: [],
-        similarMoviesStatus: loadingStates.IDLE,
+        similarMoviesStatus: LoadingStatus.IDLE,
         favoriteMovies: [],
-        favoriteMoviesStatus: loadingStates.IDLE,
+        favoriteMoviesStatus: LoadingStatus.IDLE,
       });
     });
 
@@ -63,14 +63,14 @@ describe('Comments reducer', () => {
 
       expect(state).toEqual({
         currentMovie: {},
-        currentMovieStatus: loadingStates.IDLE,
-        changeFavoriteStatus: loadingStates.IDLE,
+        currentMovieStatus: LoadingStatus.IDLE,
+        changeFavoriteStatus: LoadingStatus.IDLE,
         movies: [],
-        moviesStatus: loadingStates.FAILED,
+        moviesStatus: LoadingStatus.FAILED,
         similarMovies: [],
-        similarMoviesStatus: loadingStates.IDLE,
+        similarMoviesStatus: LoadingStatus.IDLE,
         favoriteMovies: [],
-        favoriteMoviesStatus: loadingStates.IDLE,
+        favoriteMoviesStatus: LoadingStatus.IDLE,
       });
     });
   });
@@ -81,14 +81,14 @@ describe('Comments reducer', () => {
 
       expect(state).toEqual({
         currentMovie: {},
-        currentMovieStatus: loadingStates.LOADING,
-        changeFavoriteStatus: loadingStates.IDLE,
+        currentMovieStatus: LoadingStatus.LOADING,
+        changeFavoriteStatus: LoadingStatus.IDLE,
         movies: [],
-        moviesStatus: loadingStates.IDLE,
+        moviesStatus: LoadingStatus.IDLE,
         similarMovies: [],
-        similarMoviesStatus: loadingStates.IDLE,
+        similarMoviesStatus: LoadingStatus.IDLE,
         favoriteMovies: [],
-        favoriteMoviesStatus: loadingStates.IDLE,
+        favoriteMoviesStatus: LoadingStatus.IDLE,
       });
     });
 
@@ -97,14 +97,14 @@ describe('Comments reducer', () => {
 
       expect(state).toEqual({
         currentMovie: testMovies[0],
-        currentMovieStatus: loadingStates.SUCCEEDED,
-        changeFavoriteStatus: loadingStates.IDLE,
+        currentMovieStatus: LoadingStatus.SUCCEEDED,
+        changeFavoriteStatus: LoadingStatus.IDLE,
         movies: [],
-        moviesStatus: loadingStates.IDLE,
+        moviesStatus: LoadingStatus.IDLE,
         similarMovies: [],
-        similarMoviesStatus: loadingStates.IDLE,
+        similarMoviesStatus: LoadingStatus.IDLE,
         favoriteMovies: [],
-        favoriteMoviesStatus: loadingStates.IDLE,
+        favoriteMoviesStatus: LoadingStatus.IDLE,
       });
     });
 
@@ -113,14 +113,14 @@ describe('Comments reducer', () => {
 
       expect(state).toEqual({
         currentMovie: {},
-        currentMovieStatus: loadingStates.FAILED,
-        changeFavoriteStatus: loadingStates.IDLE,
+        currentMovieStatus: LoadingStatus.FAILED,
+        changeFavoriteStatus: LoadingStatus.IDLE,
         movies: [],
-        moviesStatus: loadingStates.IDLE,
+        moviesStatus: LoadingStatus.IDLE,
         similarMovies: [],
-        similarMoviesStatus: loadingStates.IDLE,
+        similarMoviesStatus: LoadingStatus.IDLE,
         favoriteMovies: [],
-        favoriteMoviesStatus: loadingStates.IDLE,
+        favoriteMoviesStatus: LoadingStatus.IDLE,
       });
     });
   });
@@ -131,14 +131,14 @@ describe('Comments reducer', () => {
 
       expect(state).toEqual({
         currentMovie: {},
-        currentMovieStatus: loadingStates.IDLE,
-        changeFavoriteStatus: loadingStates.IDLE,
+        currentMovieStatus: LoadingStatus.IDLE,
+        changeFavoriteStatus: LoadingStatus.IDLE,
         movies: [],
-        moviesStatus: loadingStates.IDLE,
+        moviesStatus: LoadingStatus.IDLE,
         similarMovies: [],
-        similarMoviesStatus: loadingStates.LOADING,
+        similarMoviesStatus: LoadingStatus.LOADING,
         favoriteMovies: [],
-        favoriteMoviesStatus: loadingStates.IDLE,
+        favoriteMoviesStatus: LoadingStatus.IDLE,
       });
     });
 
@@ -147,14 +147,14 @@ describe('Comments reducer', () => {
 
       expect(state).toEqual({
         currentMovie: {},
-        currentMovieStatus: loadingStates.IDLE,
-        changeFavoriteStatus: loadingStates.IDLE,
+        currentMovieStatus: LoadingStatus.IDLE,
+        changeFavoriteStatus: LoadingStatus.IDLE,
         movies: [],
-        moviesStatus: loadingStates.IDLE,
+        moviesStatus: LoadingStatus.IDLE,
         similarMovies: testMovies,
-        similarMoviesStatus: loadingStates.SUCCEEDED,
+        similarMoviesStatus: LoadingStatus.SUCCEEDED,
         favoriteMovies: [],
-        favoriteMoviesStatus: loadingStates.IDLE,
+        favoriteMoviesStatus: LoadingStatus.IDLE,
       });
     });
 
@@ -163,14 +163,14 @@ describe('Comments reducer', () => {
 
       expect(state).toEqual({
         currentMovie: {},
-        currentMovieStatus: loadingStates.IDLE,
-        changeFavoriteStatus: loadingStates.IDLE,
+        currentMovieStatus: LoadingStatus.IDLE,
+        changeFavoriteStatus: LoadingStatus.IDLE,
         movies: [],
-        moviesStatus: loadingStates.IDLE,
+        moviesStatus: LoadingStatus.IDLE,
         similarMovies: [],
-        similarMoviesStatus: loadingStates.FAILED,
+        similarMoviesStatus: LoadingStatus.FAILED,
         favoriteMovies: [],
-        favoriteMoviesStatus: loadingStates.IDLE,
+        favoriteMoviesStatus: LoadingStatus.IDLE,
       });
     });
   });
@@ -181,14 +181,14 @@ describe('Comments reducer', () => {
 
       expect(state).toEqual({
         currentMovie: {},
-        currentMovieStatus: loadingStates.IDLE,
-        changeFavoriteStatus: loadingStates.IDLE,
+        currentMovieStatus: LoadingStatus.IDLE,
+        changeFavoriteStatus: LoadingStatus.IDLE,
         movies: [],
-        moviesStatus: loadingStates.IDLE,
+        moviesStatus: LoadingStatus.IDLE,
         similarMovies: [],
-        similarMoviesStatus: loadingStates.IDLE,
+        similarMoviesStatus: LoadingStatus.IDLE,
         favoriteMovies: [],
-        favoriteMoviesStatus: loadingStates.LOADING,
+        favoriteMoviesStatus: LoadingStatus.LOADING,
       });
     });
 
@@ -197,14 +197,14 @@ describe('Comments reducer', () => {
 
       expect(state).toEqual({
         currentMovie: {},
-        currentMovieStatus: loadingStates.IDLE,
-        changeFavoriteStatus: loadingStates.IDLE,
+        currentMovieStatus: LoadingStatus.IDLE,
+        changeFavoriteStatus: LoadingStatus.IDLE,
         movies: [],
-        moviesStatus: loadingStates.IDLE,
+        moviesStatus: LoadingStatus.IDLE,
         similarMovies: [],
-        similarMoviesStatus: loadingStates.IDLE,
+        similarMoviesStatus: LoadingStatus.IDLE,
         favoriteMovies: testMovies,
-        favoriteMoviesStatus: loadingStates.SUCCEEDED,
+        favoriteMoviesStatus: LoadingStatus.SUCCEEDED,
       });
     });
 
@@ -213,14 +213,14 @@ describe('Comments reducer', () => {
 
       expect(state).toEqual({
         currentMovie: {},
-        currentMovieStatus: loadingStates.IDLE,
-        changeFavoriteStatus: loadingStates.IDLE,
+        currentMovieStatus: LoadingStatus.IDLE,
+        changeFavoriteStatus: LoadingStatus.IDLE,
         movies: [],
-        moviesStatus: loadingStates.IDLE,
+        moviesStatus: LoadingStatus.IDLE,
         similarMovies: [],
-        similarMoviesStatus: loadingStates.IDLE,
+        similarMoviesStatus: LoadingStatus.IDLE,
         favoriteMovies: [],
-        favoriteMoviesStatus: loadingStates.FAILED,
+        favoriteMoviesStatus: LoadingStatus.FAILED,
       });
     });
   });
@@ -229,81 +229,81 @@ describe('Comments reducer', () => {
     it('should return the download state', () => {
       const initialState = {
         currentMovie: { id: 1, isFavorite: true, name: 'testName1' },
-        currentMovieStatus: loadingStates.IDLE,
-        changeFavoriteStatus: loadingStates.IDLE,
+        currentMovieStatus: LoadingStatus.IDLE,
+        changeFavoriteStatus: LoadingStatus.IDLE,
         movies: [],
-        moviesStatus: loadingStates.IDLE,
+        moviesStatus: LoadingStatus.IDLE,
         similarMovies: [],
-        similarMoviesStatus: loadingStates.IDLE,
+        similarMoviesStatus: LoadingStatus.IDLE,
         favoriteMovies: [],
-        favoriteMoviesStatus: loadingStates.IDLE,
+        favoriteMoviesStatus: LoadingStatus.IDLE,
       };
       const state = moviesReducer(initialState, changeFavoriteStatusRequest());
 
       expect(state).toEqual({
         currentMovie: { id: 1, isFavorite: true, name: 'testName1' },
-        currentMovieStatus: loadingStates.IDLE,
-        changeFavoriteStatus: loadingStates.LOADING,
+        currentMovieStatus: LoadingStatus.IDLE,
+        changeFavoriteStatus: LoadingStatus.LOADING,
         movies: [],
-        moviesStatus: loadingStates.IDLE,
+        moviesStatus: LoadingStatus.IDLE,
         similarMovies: [],
-        similarMoviesStatus: loadingStates.IDLE,
+        similarMoviesStatus: LoadingStatus.IDLE,
         favoriteMovies: [],
-        favoriteMoviesStatus: loadingStates.IDLE,
+        favoriteMoviesStatus: LoadingStatus.IDLE,
       });
     });
 
     it('should return the success download state', () => {
       const initialState = {
         currentMovie: { id: 1, isFavorite: true, name: 'testName1' },
-        currentMovieStatus: loadingStates.IDLE,
-        changeFavoriteStatus: loadingStates.IDLE,
+        currentMovieStatus: LoadingStatus.IDLE,
+        changeFavoriteStatus: LoadingStatus.IDLE,
         movies: [],
-        moviesStatus: loadingStates.IDLE,
+        moviesStatus: LoadingStatus.IDLE,
         similarMovies: [],
-        similarMoviesStatus: loadingStates.IDLE,
+        similarMoviesStatus: LoadingStatus.IDLE,
         favoriteMovies: [],
-        favoriteMoviesStatus: loadingStates.IDLE,
+        favoriteMoviesStatus: LoadingStatus.IDLE,
       };
       const state = moviesReducer(initialState, changeFavoriteStatusSuccess(false));
 
       expect(state).toEqual({
         currentMovie: { id: 1, isFavorite: false, name: 'testName1' },
-        currentMovieStatus: loadingStates.IDLE,
-        changeFavoriteStatus: loadingStates.SUCCEEDED,
+        currentMovieStatus: LoadingStatus.IDLE,
+        changeFavoriteStatus: LoadingStatus.SUCCEEDED,
         movies: [],
-        moviesStatus: loadingStates.IDLE,
+        moviesStatus: LoadingStatus.IDLE,
         similarMovies: [],
-        similarMoviesStatus: loadingStates.IDLE,
+        similarMoviesStatus: LoadingStatus.IDLE,
         favoriteMovies: [],
-        favoriteMoviesStatus: loadingStates.IDLE,
+        favoriteMoviesStatus: LoadingStatus.IDLE,
       });
     });
 
     it('should return the error state', () => {
       const initialState = {
         currentMovie: { id: 1, isFavorite: true, name: 'testName1' },
-        currentMovieStatus: loadingStates.IDLE,
-        changeFavoriteStatus: loadingStates.IDLE,
+        currentMovieStatus: LoadingStatus.IDLE,
+        changeFavoriteStatus: LoadingStatus.IDLE,
         movies: [],
-        moviesStatus: loadingStates.IDLE,
+        moviesStatus: LoadingStatus.IDLE,
         similarMovies: [],
-        similarMoviesStatus: loadingStates.IDLE,
+        similarMoviesStatus: LoadingStatus.IDLE,
         favoriteMovies: [],
-        favoriteMoviesStatus: loadingStates.IDLE,
+        favoriteMoviesStatus: LoadingStatus.IDLE,
       };
       const state = moviesReducer(initialState, changeFavoriteStatusError());
 
       expect(state).toEqual({
         currentMovie: { id: 1, isFavorite: true, name: 'testName1' },
-        currentMovieStatus: loadingStates.IDLE,
-        changeFavoriteStatus: loadingStates.FAILED,
+        currentMovieStatus: LoadingStatus.IDLE,
+        changeFavoriteStatus: LoadingStatus.FAILED,
         movies: [],
-        moviesStatus: loadingStates.IDLE,
+        moviesStatus: LoadingStatus.IDLE,
         similarMovies: [],
-        similarMoviesStatus: loadingStates.IDLE,
+        similarMoviesStatus: LoadingStatus.IDLE,
         favoriteMovies: [],
-        favoriteMoviesStatus: loadingStates.IDLE,
+        favoriteMoviesStatus: LoadingStatus.IDLE,
       });
     });
   });
