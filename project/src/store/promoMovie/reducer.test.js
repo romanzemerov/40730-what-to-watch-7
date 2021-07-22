@@ -7,7 +7,7 @@ import {
   fetchMovieSuccess,
   fetchMovieError
 } from './actions';
-import { loadingStates } from '../../const';
+import { LoadingStatus } from '../../const';
 
 describe('PromoMovie reducer', () => {
   describe('Set promo movie', () => {
@@ -16,8 +16,8 @@ describe('PromoMovie reducer', () => {
 
       expect(state).toEqual({
         promoMovie: {},
-        promoMovieStatus: loadingStates.LOADING,
-        changeFavoriteStatus: loadingStates.IDLE,
+        promoMovieStatus: LoadingStatus.LOADING,
+        changeFavoriteStatus: LoadingStatus.IDLE,
       });
     });
 
@@ -29,8 +29,8 @@ describe('PromoMovie reducer', () => {
 
       expect(state).toEqual({
         promoMovie: { id: 'testId', name: 'testName' },
-        promoMovieStatus: loadingStates.SUCCEEDED,
-        changeFavoriteStatus: loadingStates.IDLE,
+        promoMovieStatus: LoadingStatus.SUCCEEDED,
+        changeFavoriteStatus: LoadingStatus.IDLE,
       });
     });
 
@@ -39,8 +39,8 @@ describe('PromoMovie reducer', () => {
 
       expect(state).toEqual({
         promoMovie: {},
-        promoMovieStatus: loadingStates.FAILED,
-        changeFavoriteStatus: loadingStates.IDLE,
+        promoMovieStatus: LoadingStatus.FAILED,
+        changeFavoriteStatus: LoadingStatus.IDLE,
       });
     });
   });
@@ -49,45 +49,45 @@ describe('PromoMovie reducer', () => {
     it('should return the download state', () => {
       const initialState = {
         promoMovie: { id: 1, isFavorite: true, name: 'testName1' },
-        promoMovieStatus: loadingStates.IDLE,
-        changeFavoriteStatus: loadingStates.LOADING,
+        promoMovieStatus: LoadingStatus.IDLE,
+        changeFavoriteStatus: LoadingStatus.LOADING,
       };
       const state = promoMovieReducer(initialState, changeFavoriteStatusRequest());
 
       expect(state).toEqual({
         promoMovie: { id: 1, isFavorite: true, name: 'testName1' },
-        promoMovieStatus: loadingStates.IDLE,
-        changeFavoriteStatus: loadingStates.LOADING,
+        promoMovieStatus: LoadingStatus.IDLE,
+        changeFavoriteStatus: LoadingStatus.LOADING,
       });
     });
 
     it('should return', () => {
       const initialState = {
         promoMovie: { id: 1, isFavorite: true, name: 'testName1' },
-        promoMovieStatus: loadingStates.IDLE,
-        changeFavoriteStatus: loadingStates.IDLE,
+        promoMovieStatus: LoadingStatus.IDLE,
+        changeFavoriteStatus: LoadingStatus.IDLE,
       };
       const state = promoMovieReducer(initialState, changeFavoriteStatusSuccess(false));
 
       expect(state).toEqual({
         promoMovie: { id: 1, isFavorite: false, name: 'testName1' },
-        promoMovieStatus: loadingStates.IDLE,
-        changeFavoriteStatus: loadingStates.SUCCEEDED,
+        promoMovieStatus: LoadingStatus.IDLE,
+        changeFavoriteStatus: LoadingStatus.SUCCEEDED,
       });
     });
 
     it('should return the error state', () => {
       const initialState = {
         promoMovie: {},
-        promoMovieStatus: loadingStates.IDLE,
-        changeFavoriteStatus: loadingStates.IDLE,
+        promoMovieStatus: LoadingStatus.IDLE,
+        changeFavoriteStatus: LoadingStatus.IDLE,
       };
       const state = promoMovieReducer(initialState, changeFavoriteStatusError());
 
       expect(state).toEqual({
         promoMovie: {},
-        promoMovieStatus: loadingStates.IDLE,
-        changeFavoriteStatus: loadingStates.FAILED,
+        promoMovieStatus: LoadingStatus.IDLE,
+        changeFavoriteStatus: LoadingStatus.FAILED,
       });
     });
   });

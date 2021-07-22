@@ -11,7 +11,7 @@ import {
   logoutRequest,
   logoutSuccess
 } from './actions';
-import { AuthStates, loadingStates } from '../../const';
+import { AuthStates, LoadingStatus } from '../../const';
 
 const testUser = {
   id: 'testId',
@@ -28,11 +28,11 @@ describe('Auth reducer', () => {
 
       expect(state).toEqual({
         user: {},
-        loginStatus: loadingStates.LOADING,
+        loginStatus: LoadingStatus.LOADING,
         loginError: '',
-        logoutStatus: loadingStates.IDLE,
+        logoutStatus: LoadingStatus.IDLE,
         authState: AuthStates.UNKNOWN,
-        authStatus: loadingStates.IDLE,
+        authStatus: LoadingStatus.IDLE,
       });
     });
     it('should return the success download state', () => {
@@ -40,11 +40,11 @@ describe('Auth reducer', () => {
 
       expect(state).toEqual({
         user: testUser,
-        loginStatus: loadingStates.SUCCEEDED,
+        loginStatus: LoadingStatus.SUCCEEDED,
         loginError: '',
-        logoutStatus: loadingStates.IDLE,
+        logoutStatus: LoadingStatus.IDLE,
         authState: AuthStates.AUTH,
-        authStatus: loadingStates.IDLE,
+        authStatus: LoadingStatus.IDLE,
       });
     });
     it('should return the error state', () => {
@@ -52,11 +52,11 @@ describe('Auth reducer', () => {
 
       expect(state).toEqual({
         user: {},
-        loginStatus: loadingStates.FAILED,
+        loginStatus: LoadingStatus.FAILED,
         loginError: 'testError',
-        logoutStatus: loadingStates.IDLE,
+        logoutStatus: LoadingStatus.IDLE,
         authState: AuthStates.NO_AUTH,
-        authStatus: loadingStates.IDLE,
+        authStatus: LoadingStatus.IDLE,
       });
     });
   });
@@ -65,61 +65,61 @@ describe('Auth reducer', () => {
     it('should return the download state', () => {
       const initialState = {
         user: testUser,
-        loginStatus: loadingStates.SUCCEEDED,
+        loginStatus: LoadingStatus.SUCCEEDED,
         loginError: '',
-        logoutStatus: loadingStates.IDLE,
+        logoutStatus: LoadingStatus.IDLE,
         authState: AuthStates.AUTH,
-        authStatus: loadingStates.IDLE,
+        authStatus: LoadingStatus.IDLE,
       };
       const state = authReducer(initialState, logoutRequest());
 
       expect(state).toEqual({
         user: testUser,
-        loginStatus: loadingStates.SUCCEEDED,
+        loginStatus: LoadingStatus.SUCCEEDED,
         loginError: '',
-        logoutStatus: loadingStates.LOADING,
+        logoutStatus: LoadingStatus.LOADING,
         authState: AuthStates.AUTH,
-        authStatus: loadingStates.IDLE,
+        authStatus: LoadingStatus.IDLE,
       });
     });
     it('should return the success download state', () => {
       const initialState = {
         user: testUser,
-        loginStatus: loadingStates.SUCCEEDED,
+        loginStatus: LoadingStatus.SUCCEEDED,
         loginError: '',
-        logoutStatus: loadingStates.SUCCEEDED,
+        logoutStatus: LoadingStatus.SUCCEEDED,
         authState: AuthStates.AUTH,
-        authStatus: loadingStates.IDLE,
+        authStatus: LoadingStatus.IDLE,
       };
       const state = authReducer(initialState, logoutSuccess());
 
       expect(state).toEqual({
         user: {},
-        loginStatus: loadingStates.SUCCEEDED,
+        loginStatus: LoadingStatus.SUCCEEDED,
         loginError: '',
-        logoutStatus: loadingStates.SUCCEEDED,
+        logoutStatus: LoadingStatus.SUCCEEDED,
         authState: AuthStates.NO_AUTH,
-        authStatus: loadingStates.IDLE,
+        authStatus: LoadingStatus.IDLE,
       });
     });
     it('should return the error state', () => {
       const initialState = {
         user: testUser,
-        loginStatus: loadingStates.SUCCEEDED,
+        loginStatus: LoadingStatus.SUCCEEDED,
         loginError: '',
-        logoutStatus: loadingStates.LOADING,
+        logoutStatus: LoadingStatus.LOADING,
         authState: AuthStates.AUTH,
-        authStatus: loadingStates.IDLE,
+        authStatus: LoadingStatus.IDLE,
       };
       const state = authReducer(initialState, logoutError());
 
       expect(state).toEqual({
         user: testUser,
-        loginStatus: loadingStates.SUCCEEDED,
+        loginStatus: LoadingStatus.SUCCEEDED,
         loginError: '',
-        logoutStatus: loadingStates.FAILED,
+        logoutStatus: LoadingStatus.FAILED,
         authState: AuthStates.AUTH,
-        authStatus: loadingStates.IDLE,
+        authStatus: LoadingStatus.IDLE,
       });
     });
   });
@@ -128,61 +128,61 @@ describe('Auth reducer', () => {
     it('should return the download state', () => {
       const initialState = {
         user: {},
-        loginStatus: loadingStates.IDLE,
+        loginStatus: LoadingStatus.IDLE,
         loginError: '',
-        logoutStatus: loadingStates.IDLE,
+        logoutStatus: LoadingStatus.IDLE,
         authState: AuthStates.UNKNOWN,
-        authStatus: loadingStates.IDLE,
+        authStatus: LoadingStatus.IDLE,
       };
       const state = authReducer(initialState, checkAuthStateRequest());
 
       expect(state).toEqual({
         user: {},
-        loginStatus: loadingStates.IDLE,
+        loginStatus: LoadingStatus.IDLE,
         loginError: '',
-        logoutStatus: loadingStates.IDLE,
+        logoutStatus: LoadingStatus.IDLE,
         authState: AuthStates.UNKNOWN,
-        authStatus: loadingStates.LOADING,
+        authStatus: LoadingStatus.LOADING,
       });
     });
     it('should return the success download state', () => {
       const initialState = {
         user: {},
-        loginStatus: loadingStates.IDLE,
+        loginStatus: LoadingStatus.IDLE,
         loginError: '',
-        logoutStatus: loadingStates.IDLE,
+        logoutStatus: LoadingStatus.IDLE,
         authState: AuthStates.UNKNOWN,
-        authStatus: loadingStates.LOADING,
+        authStatus: LoadingStatus.LOADING,
       };
       const state = authReducer(initialState, checkAuthStateSuccess(testUser));
 
       expect(state).toEqual({
         user: testUser,
-        loginStatus: loadingStates.IDLE,
+        loginStatus: LoadingStatus.IDLE,
         loginError: '',
-        logoutStatus: loadingStates.IDLE,
+        logoutStatus: LoadingStatus.IDLE,
         authState: AuthStates.AUTH,
-        authStatus: loadingStates.SUCCEEDED,
+        authStatus: LoadingStatus.SUCCEEDED,
       });
     });
     it('should return the error download state', () => {
       const initialState = {
         user: {},
-        loginStatus: loadingStates.IDLE,
+        loginStatus: LoadingStatus.IDLE,
         loginError: '',
-        logoutStatus: loadingStates.IDLE,
+        logoutStatus: LoadingStatus.IDLE,
         authState: AuthStates.UNKNOWN,
-        authStatus: loadingStates.LOADING,
+        authStatus: LoadingStatus.LOADING,
       };
       const state = authReducer(initialState, checkAuthStateError());
 
       expect(state).toEqual({
         user: {},
-        loginStatus: loadingStates.IDLE,
+        loginStatus: LoadingStatus.IDLE,
         loginError: '',
-        logoutStatus: loadingStates.IDLE,
+        logoutStatus: LoadingStatus.IDLE,
         authState: AuthStates.NO_AUTH,
-        authStatus: loadingStates.FAILED,
+        authStatus: LoadingStatus.FAILED,
       });
     });
   });
@@ -191,21 +191,21 @@ describe('Auth reducer', () => {
     it('should reset user data', () => {
       const initialState = {
         user: testUser,
-        loginStatus: loadingStates.IDLE,
+        loginStatus: LoadingStatus.IDLE,
         loginError: '',
-        logoutStatus: loadingStates.IDLE,
+        logoutStatus: LoadingStatus.IDLE,
         authState: AuthStates.AUTH,
-        authStatus: loadingStates.IDLE,
+        authStatus: LoadingStatus.IDLE,
       };
       const state = authReducer(initialState, resetUserData(AuthStates.NO_AUTH));
 
       expect(state).toEqual({
         user: {},
-        loginStatus: loadingStates.IDLE,
+        loginStatus: LoadingStatus.IDLE,
         loginError: '',
-        logoutStatus: loadingStates.IDLE,
+        logoutStatus: LoadingStatus.IDLE,
         authState: AuthStates.NO_AUTH,
-        authStatus: loadingStates.IDLE,
+        authStatus: LoadingStatus.IDLE,
       });
     });
   });

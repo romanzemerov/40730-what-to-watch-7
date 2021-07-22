@@ -1,6 +1,6 @@
 import React from 'react';
-import PageHeader from '../../../../../page-header/page-header';
-import { AppRoutes, AuthStates, loadingStates } from '../../../../../../const';
+import { PageHeader } from '../../../../../page-header/page-header';
+import { AppRoutes, AuthStates, LoadingStatus } from '../../../../../../const';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -68,7 +68,7 @@ function PromoMovie() {
                 className="btn btn--list film-card__button"
                 type="button"
                 onClick={addListClickHandler}
-                disabled={changeFavoriteStatus === loadingStates.LOADING}
+                disabled={changeFavoriteStatus === LoadingStatus.LOADING}
               >
                 <svg viewBox="0 0 19 20" width="19" height="20">
                   {movie.isFavorite && authStatus === AuthStates.AUTH ? (

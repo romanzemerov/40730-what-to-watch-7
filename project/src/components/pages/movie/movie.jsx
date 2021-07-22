@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { PageFooter } from '../../page-footer/page-footer';
-import PageHeader from '../../page-header/page-header';
+import { PageHeader } from '../../page-header/page-header';
 import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
 import { MovieDescription } from '../../movie-description/movie-description';
 import { MovieList } from '../../movie-list/movie-list';
@@ -14,9 +14,10 @@ import {
   getSimilarMovies,
   getSimilarMoviesStatus
 } from '../../../store/movies/selectors';
-import { AppRoutes, AuthStates, loadingStates } from '../../../const';
+import { AppRoutes, AuthStates, LoadingStatus } from '../../../const';
 import { getAuthState } from '../../../store/auth/selectors';
 import { fetchComments } from '../../../store/comments/async-actions';
+import { isLoadingFinish } from '../../../helpers';
 
 function Movie() {
   const { id } = useParams();
@@ -49,7 +50,7 @@ function Movie() {
     dispatch(fetchComments(id));
   }, [id, dispatch]);
 
-  if (movieStatus !== loadingStates.SUCCEEDED) {
+  if (!isLoadingFinish(movieStatus)) {
     return <LoadingScreen />;
   }
 
@@ -86,7 +87,7 @@ function Movie() {
                   className="btn btn--list film-card__button"
                   type="button"
                   onClick={addListClickHandler}
-                  disabled={changeFavoriteStatus === loadingStates.LOADING}
+                  disabled={changeFavoriteStatus === LoadingStatus.LOADING}
                 >
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     {movie.isFavorite && authStatus === AuthStates.AUTH ? (
@@ -116,7 +117,7 @@ function Movie() {
         </div>
       </section>
       <div className="page-content">
-        {similarMoviesStatus === loadingStates.SUCCEEDED ? (
+        {similarMoviesStatus === LoadingStatus.SUCCEEDED ? (
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
             <MovieList movies={similarMovies} />

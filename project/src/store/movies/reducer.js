@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { loadingStates } from '../../const';
+import { LoadingStatus } from '../../const';
 import {
   changeFavoriteStatusError,
   changeFavoriteStatusRequest,
@@ -20,74 +20,74 @@ import {
 
 const initialState = {
   currentMovie: {},
-  currentMovieStatus: loadingStates.IDLE,
-  changeFavoriteStatus: loadingStates.IDLE,
+  currentMovieStatus: LoadingStatus.IDLE,
+  changeFavoriteStatus: LoadingStatus.IDLE,
   movies: [],
-  moviesStatus: loadingStates.IDLE,
+  moviesStatus: LoadingStatus.IDLE,
   similarMovies: [],
-  similarMoviesStatus: loadingStates.IDLE,
+  similarMoviesStatus: LoadingStatus.IDLE,
   favoriteMovies: [],
-  favoriteMoviesStatus: loadingStates.IDLE,
+  favoriteMoviesStatus: LoadingStatus.IDLE,
 };
 
 export const moviesReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(getMoviesRequest, (state) => {
-      state.moviesStatus = loadingStates.LOADING;
+      state.moviesStatus = LoadingStatus.LOADING;
       state.movies = initialState.movies;
     })
     .addCase(getMoviesSuccess, (state, { payload }) => {
-      state.moviesStatus = loadingStates.SUCCEEDED;
+      state.moviesStatus = LoadingStatus.SUCCEEDED;
       state.movies = payload;
     })
     .addCase(getMoviesError, (state) => {
-      state.moviesStatus = loadingStates.FAILED;
+      state.moviesStatus = LoadingStatus.FAILED;
     })
 
     .addCase(getMovieRequest, (state) => {
-      state.currentMovieStatus = loadingStates.LOADING;
+      state.currentMovieStatus = LoadingStatus.LOADING;
       state.currentMovie = initialState.currentMovie;
     })
     .addCase(getMovieSuccess, (state, { payload }) => {
-      state.currentMovieStatus = loadingStates.SUCCEEDED;
+      state.currentMovieStatus = LoadingStatus.SUCCEEDED;
       state.currentMovie = payload;
     })
     .addCase(getMovieError, (state) => {
-      state.currentMovieStatus = loadingStates.FAILED;
+      state.currentMovieStatus = LoadingStatus.FAILED;
     })
 
     .addCase(getSimilarMoviesRequest, (state) => {
-      state.similarMoviesStatus = loadingStates.LOADING;
+      state.similarMoviesStatus = LoadingStatus.LOADING;
       state.similarMovies = initialState.similarMovies;
     })
     .addCase(getSimilarMoviesSuccess, (state, { payload }) => {
-      state.similarMoviesStatus = loadingStates.SUCCEEDED;
+      state.similarMoviesStatus = LoadingStatus.SUCCEEDED;
       state.similarMovies = payload;
     })
     .addCase(getSimilarMoviesError, (state) => {
-      state.similarMoviesStatus = loadingStates.FAILED;
+      state.similarMoviesStatus = LoadingStatus.FAILED;
     })
 
     .addCase(fetchFavoriteMoviesRequest, (state) => {
-      state.favoriteMoviesStatus = loadingStates.LOADING;
+      state.favoriteMoviesStatus = LoadingStatus.LOADING;
       state.favoriteMovies = initialState.favoriteMovies;
     })
     .addCase(fetchFavoriteMoviesSuccess, (state, { payload }) => {
-      state.favoriteMoviesStatus = loadingStates.SUCCEEDED;
+      state.favoriteMoviesStatus = LoadingStatus.SUCCEEDED;
       state.favoriteMovies = payload;
     })
     .addCase(fetchFavoriteMoviesError, (state) => {
-      state.favoriteMoviesStatus = loadingStates.FAILED;
+      state.favoriteMoviesStatus = LoadingStatus.FAILED;
     })
 
     .addCase(changeFavoriteStatusRequest, (state) => {
-      state.changeFavoriteStatus = loadingStates.LOADING;
+      state.changeFavoriteStatus = LoadingStatus.LOADING;
     })
     .addCase(changeFavoriteStatusSuccess, (state, { payload }) => {
-      state.changeFavoriteStatus = loadingStates.SUCCEEDED;
+      state.changeFavoriteStatus = LoadingStatus.SUCCEEDED;
       state.currentMovie.isFavorite = payload;
     })
     .addCase(changeFavoriteStatusError, (state) => {
-      state.changeFavoriteStatus = loadingStates.FAILED;
+      state.changeFavoriteStatus = LoadingStatus.FAILED;
     });
 });

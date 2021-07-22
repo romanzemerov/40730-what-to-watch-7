@@ -7,7 +7,7 @@ import {
   postCommentSuccess,
   postCommentError
 } from './actions';
-import { loadingStates } from '../../const';
+import { LoadingStatus } from '../../const';
 
 const testComments = [
   { id: 1, comment: 'textComment1' },
@@ -22,23 +22,23 @@ describe('Comments reducer', () => {
 
       expect(state).toEqual({
         comments: [],
-        commentsStatus: loadingStates.LOADING,
-        postCommentStatus: loadingStates.IDLE,
+        commentsStatus: LoadingStatus.LOADING,
+        postCommentStatus: LoadingStatus.IDLE,
       });
     });
 
     it('should return empty comments array', () => {
       const initialState = {
         comments: testComments,
-        commentsStatus: loadingStates.IDLE,
-        postCommentStatus: loadingStates.IDLE,
+        commentsStatus: LoadingStatus.IDLE,
+        postCommentStatus: LoadingStatus.IDLE,
       };
       const state = commentsReducer(initialState, getCommentsRequest());
 
       expect(state).toEqual({
         comments: [],
-        commentsStatus: loadingStates.LOADING,
-        postCommentStatus: loadingStates.IDLE,
+        commentsStatus: LoadingStatus.LOADING,
+        postCommentStatus: LoadingStatus.IDLE,
       });
     });
 
@@ -47,8 +47,8 @@ describe('Comments reducer', () => {
 
       expect(state).toEqual({
         comments: testComments,
-        commentsStatus: loadingStates.SUCCEEDED,
-        postCommentStatus: loadingStates.IDLE,
+        commentsStatus: LoadingStatus.SUCCEEDED,
+        postCommentStatus: LoadingStatus.IDLE,
       });
     });
 
@@ -57,8 +57,8 @@ describe('Comments reducer', () => {
 
       expect(state).toEqual({
         comments: [],
-        commentsStatus: loadingStates.FAILED,
-        postCommentStatus: loadingStates.IDLE,
+        commentsStatus: LoadingStatus.FAILED,
+        postCommentStatus: LoadingStatus.IDLE,
       });
     });
   });
@@ -69,8 +69,8 @@ describe('Comments reducer', () => {
 
       expect(state).toEqual({
         comments: [],
-        commentsStatus: loadingStates.IDLE,
-        postCommentStatus: loadingStates.LOADING,
+        commentsStatus: LoadingStatus.IDLE,
+        postCommentStatus: LoadingStatus.LOADING,
       });
     });
 
@@ -79,24 +79,24 @@ describe('Comments reducer', () => {
 
       expect(state).toEqual({
         comments: testComments,
-        commentsStatus: loadingStates.IDLE,
-        postCommentStatus: loadingStates.SUCCEEDED,
+        commentsStatus: LoadingStatus.IDLE,
+        postCommentStatus: LoadingStatus.SUCCEEDED,
       });
     });
 
     it('should return the error state', () => {
       const initialState = {
         comments: testComments,
-        commentsStatus: loadingStates.IDLE,
-        postCommentStatus: loadingStates.LOADING,
+        commentsStatus: LoadingStatus.IDLE,
+        postCommentStatus: LoadingStatus.LOADING,
       };
 
       const state = commentsReducer(initialState, postCommentError());
 
       expect(state).toEqual({
         comments: testComments,
-        commentsStatus: loadingStates.IDLE,
-        postCommentStatus: loadingStates.FAILED,
+        commentsStatus: LoadingStatus.IDLE,
+        postCommentStatus: LoadingStatus.FAILED,
       });
     });
   });
