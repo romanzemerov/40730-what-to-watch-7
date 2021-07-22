@@ -28,10 +28,12 @@ describe('Auth async actions', () => {
     const testUser = { email: 'test@test.com', password: 'testPassword' };
     const responseData = userMock;
     const loginLoader = login(testUser);
+    Storage.prototype.setItem = jest.fn();
 
     apiMock.onPost(APIRoute.LOGIN).reply(200, responseData);
 
     return loginLoader(dispatch, () => {}, api).then(() => {
+      expect(Storage.prototype.setItem).nthCalledWith(1, 'token', 'testToken');
       expect(dispatch).toHaveBeenCalledTimes(2);
       expect(dispatch).toHaveBeenNthCalledWith(1, loginRequest());
       expect(dispatch).toHaveBeenNthCalledWith(
@@ -69,9 +71,12 @@ describe('Auth async actions', () => {
     const dispatch = jest.fn();
     const loginLoader = logout();
 
+    Storage.prototype.removeItem = jest.fn();
+
     apiMock.onDelete(APIRoute.LOGOUT).reply(204);
 
     return loginLoader(dispatch, () => {}, api).then(() => {
+      expect(Storage.prototype.removeItem).nthCalledWith(1, 'token');
       expect(dispatch).toHaveBeenCalledTimes(2);
       expect(dispatch).toHaveBeenNthCalledWith(1, logoutRequest());
       expect(dispatch).toHaveBeenNthCalledWith(2, logoutSuccess());
@@ -113,9 +118,12 @@ describe('Auth async actions', () => {
     const dispatch = jest.fn();
     const checkAuthStateLoader = checkAuthState();
 
+    Storage.prototype.removeItem = jest.fn();
+
     apiMock.onGet(APIRoute.LOGIN).reply(500);
 
     return checkAuthStateLoader(dispatch, () => {}, api).then(() => {
+      expect(Storage.prototype.removeItem).nthCalledWith(1, 'token');
       expect(dispatch).toHaveBeenCalledTimes(2);
       expect(dispatch).toHaveBeenNthCalledWith(1, checkAuthStateRequest());
       expect(dispatch).toHaveBeenNthCalledWith(2, checkAuthStateError());
