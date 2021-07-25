@@ -44,6 +44,7 @@ function Player() {
 
   const tickHandler = () => {
     if (videoRef.current && videoRef.current.readyState === 4) {
+      setTime(videoRef.current.duration);
       setProgress((videoRef.current.currentTime * 100) / videoRef.current.duration);
     }
   };
@@ -63,12 +64,6 @@ function Player() {
   useEffect(() => {
     dispatch(fetchMovie(id));
   }, [dispatch, id]);
-
-  useEffect(() => {
-    if (videoRef.current && videoRef.current.readyState === 4) {
-      setTime(videoRef.current.duration);
-    }
-  }, [videoRef.current]);
 
   useEffect(() => {
     if (!isPlaying) {
