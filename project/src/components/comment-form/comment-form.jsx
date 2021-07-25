@@ -62,7 +62,7 @@ function CommentForm({ movieId }) {
 }
 
 CommentForm.propTypes = {
-  movieId: PropTypes.number.isRequired,
+  movieId: PropTypes.string.isRequired,
 };
 
 export { CommentForm };

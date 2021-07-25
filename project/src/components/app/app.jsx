@@ -43,7 +43,7 @@ function App({ movies, moviesStatus, authStatus, promoMovieStatus }) {
         <Route path={AppRoutes.MOVIE} exact>
           <Movie />
         </Route>
-        <Route path={AppRoutes.ADD_REVIEW} movies={movies} component={AddReview} exact>
+        <Route path={AppRoutes.ADD_REVIEW} movies={movies} exact>
           <AddReview />
         </Route>
         <Route path={AppRoutes.PLAYER}>

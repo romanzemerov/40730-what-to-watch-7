@@ -1,11 +1,21 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { MovieCard } from '../movie-card/movie-card';
 import { moviePropTypes } from '../../types/movie.prop';
 import { ShowMore } from './components/show-more/show-more';
-import { useUpdateEffect } from '../../hooks/useUpdateEffect';
+import { useFirstMountState } from '../../hooks/useFirstMountState';
 import PropTypes from 'prop-types';
 
 const MOVIES_COUNT = 8;
+
+const useUpdateEffect = (effect, movies, page) => {
+  const isFirstMount = useFirstMountState();
+
+  useEffect(() => {
+    if (!isFirstMount) {
+      return effect();
+    }
+  }, [isFirstMount, effect, movies, page]);
+};
 
 const getShowingMovies = (movies, page, maxMoviesCount = MOVIES_COUNT) =>
   movies.slice(0, page * maxMoviesCount);
@@ -28,7 +38,7 @@ function MovieList({ movies }) {
     setPage((prev) => prev + 1);
   };
 
-  useUpdateEffect(setShowingMoviesMemo, [movies, page]);
+  useUpdateEffect(setShowingMoviesMemo, movies, page);
 
   return (
     <>

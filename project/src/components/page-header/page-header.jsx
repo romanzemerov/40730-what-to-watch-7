@@ -24,9 +24,7 @@ function PageHeader({ title, breadcrumbs }) {
                   {label}
                 </Link>
               ) : (
-                <a href className="breadcrumbs__link">
-                  {label}
-                </a>
+                <span className="breadcrumbs__link">{label}</span>
               );
 
               return (

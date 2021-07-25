@@ -25,7 +25,6 @@ function AddReview() {
     return <LoadingScreen />;
   }
 
-  // TODO: автоматически генерировать хлебные крошки.
   const breadCrumbs = [{ label: movie.name, href: `/films/${movie.id}` }, { label: 'Add Review' }];
 
   return (
