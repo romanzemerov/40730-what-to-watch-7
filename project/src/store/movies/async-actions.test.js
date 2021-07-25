@@ -11,6 +11,7 @@ import { createAPI, transformMovieData } from '../../services/api';
 import {
   changeFavoriteStatusError,
   changeFavoriteStatusRequest,
+  changeFavoriteStatusSuccess,
   fetchFavoriteMoviesError,
   fetchFavoriteMoviesRequest,
   fetchFavoriteMoviesSuccess,
@@ -178,7 +179,7 @@ describe('Movies async actions', () => {
       expect(dispatch).toHaveBeenNthCalledWith(1, changeFavoriteStatusRequest());
       expect(dispatch).toHaveBeenNthCalledWith(
         2,
-        changeFavoriteStatusRequest(transformMovieData(responseData).isFavorite),
+        changeFavoriteStatusSuccess(transformMovieData(responseData).isFavorite),
       );
     });
   });

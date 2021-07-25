@@ -1,6 +1,7 @@
 import {
   changeFavoriteStatusError,
   changeFavoriteStatusRequest,
+  changeFavoriteStatusSuccess,
   fetchFavoriteMoviesError,
   fetchFavoriteMoviesRequest,
   fetchFavoriteMoviesSuccess,
@@ -73,7 +74,7 @@ export const changeFavorite =
       return api
         .post(`${APIRoute.FAVORITE}/${id}/${status}`)
         .then(({ data }) => {
-          dispatch(changeFavoriteStatusRequest(transformMovieData(data).isFavorite));
+          dispatch(changeFavoriteStatusSuccess(transformMovieData(data).isFavorite));
         })
         .catch(() => dispatch(changeFavoriteStatusError()));
     };
