@@ -8,6 +8,7 @@ import { fetchMovies } from './store/movies/async-actions';
 import { fetchPromoMovie } from './store/promoMovie/async-actions';
 import { Router } from 'react-router-dom';
 import browserHistory from './browser-history';
+import './index.css';
 
 store.dispatch(checkAuthState());
 store.dispatch(fetchPromoMovie());

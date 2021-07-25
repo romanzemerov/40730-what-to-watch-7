@@ -33,22 +33,22 @@ function MovieCard({
       onMouseEnter={mouseEnterHandler}
       onMouseLeave={mouseLeaveHandler}
     >
-      <div className="small-film-card__image">
-        <img src={posterImage} alt={name} width="280" height="175" />
-      </div>
-      <h3 className="small-film-card__title">
-        <Link to={`/films/${id}`} className="small-film-card__link">
-          {name}
-        </Link>
-      </h3>
-      {isActive && (
-        <VideoPlayer
-          src={previewVideoLink}
-          poster={previewImage}
-          muted
-          onEnded={onChangeActiveMovie}
-        />
-      )}
+      <Link to={`/films/${id}`}>
+        <div className="small-film-card__image">
+          <img src={posterImage} alt={name} width="280" height="175" />
+        </div>
+        <h3 className="small-film-card__title">
+          <span className="small-film-card__link">{name}</span>
+        </h3>
+        {isActive && (
+          <VideoPlayer
+            src={previewVideoLink}
+            poster={previewImage}
+            muted
+            onEnded={onChangeActiveMovie}
+          />
+        )}
+      </Link>
     </article>
   );
 }
