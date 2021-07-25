@@ -1,4 +1,6 @@
-export const ticker = (cb, ms = 1000, count = Infinity) => {
+const DEFAULT_MS_COUNT = 1000;
+
+export const ticker = (cb, ms = DEFAULT_MS_COUNT, count = Infinity) => {
   let tickCount = 0;
   let cancelled = false;
 

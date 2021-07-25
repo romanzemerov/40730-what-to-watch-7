@@ -19,6 +19,9 @@ import { getAuthState } from '../../../store/auth/selectors';
 import { fetchComments } from '../../../store/comments/async-actions';
 import { isLoadingFinish } from '../../../helpers';
 
+const POSTER_WIDTH = 218;
+const POSTER_HEIGHT = 327;
+
 function Movie() {
   const { id } = useParams();
   const { pathname } = useLocation();
@@ -110,7 +113,12 @@ function Movie() {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={movie.posterImage} alt={movie.name} width={218} height={327} />
+              <img
+                src={movie.posterImage}
+                alt={movie.name}
+                width={POSTER_WIDTH}
+                height={POSTER_HEIGHT}
+              />
             </div>
             <MovieDescription movie={movie} />
           </div>

@@ -28,6 +28,7 @@ import {
 import { moviesMock } from '../../mocks/movies';
 import { redirectToRoute } from '../middlewares/redirect';
 
+const parsedMoviesMock = JSON.parse(moviesMock);
 let api = null;
 
 describe('Movies async actions', () => {
@@ -38,7 +39,7 @@ describe('Movies async actions', () => {
   it('should make success movies request', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const responseData = moviesMock;
+    const responseData = parsedMoviesMock;
     const fetchMoviesLoader = fetchMovies();
 
     apiMock.onGet(APIRoute.MOVIES).reply(200, responseData);
@@ -70,7 +71,7 @@ describe('Movies async actions', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const movieId = 'testId';
-    const responseData = moviesMock[0];
+    const responseData = parsedMoviesMock[0];
     const fetchMovieLoader = fetchMovie(movieId);
 
     apiMock.onGet(`${APIRoute.MOVIES}/${movieId}`).reply(200, responseData);
@@ -104,7 +105,7 @@ describe('Movies async actions', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const movieId = 'testId';
-    const responseData = moviesMock;
+    const responseData = parsedMoviesMock;
     const fetchSimilarFilmsLoader = fetchSimilarFilms(movieId);
 
     apiMock.onGet(`${APIRoute.MOVIES}/${movieId}${APIRoute.SIMILAR}`).reply(200, responseData);
@@ -136,7 +137,7 @@ describe('Movies async actions', () => {
   it('should make success favorite movies request', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const responseData = moviesMock;
+    const responseData = parsedMoviesMock;
     const fetchFavoriteMoviesLoader = fetchFavoriteMovies();
 
     apiMock.onGet(APIRoute.FAVORITE).reply(200, responseData);
@@ -169,7 +170,7 @@ describe('Movies async actions', () => {
     const dispatch = jest.fn();
     const movieId = 'testId';
     const status = 'testStatus';
-    const responseData = moviesMock[0];
+    const responseData = parsedMoviesMock[0];
     const changeFavoriteLoader = changeFavorite({ id: movieId, status });
 
     apiMock.onPost(`${APIRoute.FAVORITE}/${movieId}/${status}`).reply(200, responseData);

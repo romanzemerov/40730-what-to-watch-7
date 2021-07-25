@@ -15,6 +15,7 @@ import {
 } from './actions';
 import { userMock } from '../../mocks/user';
 
+const parsedUserMock = JSON.parse(userMock);
 let api = null;
 
 describe('Auth async actions', () => {
@@ -26,7 +27,7 @@ describe('Auth async actions', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const testUser = { email: 'test@test.com', password: 'testPassword' };
-    const responseData = userMock;
+    const responseData = parsedUserMock;
     const loginLoader = login(testUser);
     Storage.prototype.setItem = jest.fn();
 
@@ -99,7 +100,7 @@ describe('Auth async actions', () => {
   it('should make success auth check', () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const responseData = userMock;
+    const responseData = parsedUserMock;
     const checkAuthStateLoader = checkAuthState();
 
     apiMock.onGet(APIRoute.LOGIN).reply(200, responseData);
